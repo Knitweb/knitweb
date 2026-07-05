@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "knitweb field config v0.1",
+  "type": "object",
+  "required": ["slug", "name", "accent", "tagline", "status", "order"],
+  "additionalProperties": false,
+  "properties": {
+    "slug":     { "type": "string", "pattern": "^[a-z][a-z0-9]{2,23}$" },
+    "name":     { "type": "string", "maxLength": 40 },
+    "accent":   { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+    "tagline":  { "type": "string", "maxLength": 120 },
+    "status":   { "enum": ["live", "teaser", "hidden"] },
+    "order":    { "type": "integer", "minimum": 0 },
+    "taxonomy": { "type": "array", "items": { "type": "string" }, "maxItems": 32 },
+    "seed":     { "type": "string", "description": "pad naar *.seed.f1" },
+    "ingest":   { "type": "array", "items": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": { "enum": ["seed", "rss", "pypi", "vank-report", "manual"] },
+          "url":  { "type": "string" },
+          "interval_h": { "type": "integer", "minimum": 1 }
+        }
+    }},
+    "judges":   { "type": "array", "items": { "type": "string" } },
+    "links":    { "type": "object", "properties": {
+        "repo": { "type": "string" }, "docs": { "type": "string" }
+    }}
+  }
+}
