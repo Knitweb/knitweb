@@ -1,5 +1,6 @@
 # Changelog
 
+- KW-008: ingest v1 — build leest seeds/<slug>.knits.json → per-field knits.json + echte fabric-strip-tellingen (stats.json). chemfield-seed: 21 gesourcede knits + 108 fibers (uit ChemField/openchem, geen verzinsels). Signed .f1 + vank-adapter = follow-up. (#8)
 - KW-005: field-pagina §2.2 — top-knits + sort (score/nieuw/betwist §A5), fiber-placeholder, knit-indienen-form met canonieke knit/1-preview + keccak-digest en lokale secp256k1-signing (IndexedDB) → .f1-download; XSS-veilig, werkt met 0 knits. (#7)
 - KW-004: hub-pagina §2.1 — hero, live fabric-strip (stats.json), teaser-badged field-grid, explorer-teaser client-search over knits.json, config-constant footerlinks. (#5)
 Elke merge één regel (feed-bron voor KW-010).
