@@ -1,5 +1,104 @@
-/* tokens.css — foundry-dark placeholder (KW-003 levert de definitieve set). */
-:root{
-  --bg:#0b0e14; --ink:#e6edf3; --dim:#8b95a5; --line:#262d3a;
-  --accent:#3fb6a8; --font:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+/* tokens.css — foundry-dark designtokens + componentstijlen (KW-003, wireframes §2.1–2.2).
+ * Palet: Vank-GUI-familie. Per-field accent komt uit field.json via --accent.
+ * Geen framework, geen webfonts (system-stack). Donker is default. */
+
+:root {
+  /* ── palet ─────────────────────────────────────────────────────────── */
+  --bg:      #0e1316;   /* basis                    */
+  --panel:   #161d22;   /* panelen / kaarten        */
+  --panel-2: #1b242b;   /* verhoogd paneel          */
+  --line:    #2b3a42;   /* lijnen / randen          */
+  --line-2:  #3a4c57;   /* nadruk-rand              */
+  --ink:     #eef3f4;   /* tekst                    */
+  --dim:     #8fa3ab;   /* gedempte tekst           */
+  --accent:  #3fb6a8;   /* per-field, default chemfield */
+  --accent-ink: #04110e;/* tekst op accent          */
+  --up:      #4ec98f;   /* upvote / positief        */
+  --down:    #ff6f93;   /* downvote / betwist       */
+  --warn:    #f4b41a;   /* teaser / let op          */
+
+  /* ── typografie ────────────────────────────────────────────────────── */
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* ── ruimte / vorm ─────────────────────────────────────────────────── */
+  --r: 12px; --r-sm: 8px; --r-pill: 999px;
+  --pad: 14px; --gap: 12px;
+  --shadow: 0 1px 0 rgba(255,255,255,.03), 0 8px 24px rgba(0,0,0,.35);
+  --focus: 0 0 0 2px color-mix(in oklab, var(--accent) 60%, transparent);
+}
+
+/* ── basis ───────────────────────────────────────────────────────────── */
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); line-height: 1.55; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+::selection { background: color-mix(in oklab, var(--accent) 40%, transparent); }
+:focus-visible { outline: none; box-shadow: var(--focus); border-radius: var(--r-sm); }
+
+/* ── .hash — mono, afgekapt ──────────────────────────────────────────── */
+.hash {
+  font-family: var(--mono); font-size: .82em; color: var(--dim);
+  max-width: 22ch; display: inline-block; vertical-align: bottom;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* ── .badge-status — live / teaser / hidden ──────────────────────────── */
+.badge-status {
+  font-family: var(--mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .08em;
+  padding: .12rem .5rem; border-radius: var(--r-pill); border: 1px solid var(--line);
+  color: var(--dim);
+}
+.badge-status.live   { color: var(--accent); border-color: color-mix(in oklab, var(--accent) 55%, var(--line)); }
+.badge-status.teaser { color: var(--warn);   border-color: color-mix(in oklab, var(--warn) 55%, var(--line)); }
+.badge-status.hidden { color: var(--dim); }
+
+/* ── .field-card — hub-kaart (§2.1) ──────────────────────────────────── */
+.field-card {
+  display: block; background: var(--panel); color: inherit;
+  border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  border-radius: var(--r); padding: var(--pad); box-shadow: var(--shadow);
+  transition: border-color .15s, transform .15s;
+}
+.field-card:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
+.field-card h3 { margin: .25rem 0 .2rem; font-size: 1rem; }
+.field-card p  { margin: 0; color: var(--dim); font-size: .88rem; }
+
+/* ── .knit-card — gestemd feit (§2.2) ────────────────────────────────── */
+.knit-card {
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--r);
+  padding: var(--pad); box-shadow: var(--shadow); display: grid; gap: .5rem;
+}
+.knit-card .knit-head { display: flex; align-items: center; gap: .6rem; }
+.knit-card .knit-claim { font-size: .98rem; }
+.knit-card .knit-meta { display: flex; flex-wrap: wrap; gap: .5rem 1rem; color: var(--dim); font-size: .8rem; }
+.knit-card .tag {
+  font-family: var(--mono); font-size: .72rem; padding: .05rem .45rem;
+  border: 1px solid var(--line); border-radius: var(--r-sm); color: var(--dim);
+}
+
+/* ── .vote-widget — stemmen (CSS-only; interactie = latere issue) ────── */
+.vote-widget { display: inline-flex; align-items: center; gap: .1rem;
+  border: 1px solid var(--line); border-radius: var(--r-pill); padding: .1rem; background: var(--panel-2); }
+.vote-widget button, .vote-widget .v {
+  font: inherit; font-family: var(--mono); background: transparent; color: var(--dim);
+  border: 0; border-radius: var(--r-pill); padding: .15rem .55rem; cursor: pointer; line-height: 1;
+}
+.vote-widget .up:hover    { color: var(--up); }
+.vote-widget .down:hover  { color: var(--down); }
+.vote-widget .score { color: var(--ink); font-weight: 700; min-width: 2.2ch; text-align: center; }
+.vote-widget.betwist .score { color: var(--down); }   /* §A5: down/(up+down) ≥ .25 & totaal ≥ 8 */
+
+/* ── .strip — live-stats balk ────────────────────────────────────────── */
+.strip {
+  display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center;
+  font-family: var(--mono); font-size: .9rem; color: var(--accent);
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-sm);
+  padding: .6rem 1rem;
+}
+.strip b { color: var(--ink); }
+
+/* ── toegankelijkheid: respecteer prefers-reduced-motion ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  .field-card:hover { transform: none; }
 }
