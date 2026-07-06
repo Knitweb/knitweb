@@ -161,6 +161,82 @@ ${shown.length ? cards : empty}
 `;
 }
 
+// A field page (wireframe §2.2): top-knits list (sort score/nieuw/betwist), a
+// knit-detail panel, a fiber-kaart placeholder (adjacency list — no graph lib
+// yet), and the "knit indienen" form with a canonical hash-preview before local
+// signing. Interactivity + signing live in src/client/field.ts (→ field.js); the
+// page ships its knits inline so it renders with 0 knits and needs no blocking
+// fetch. KW-005 (7).
+function renderField(f, knits) {
+  const inline = JSON.stringify({ slug: f.slug, name: f.name, accent: f.accent });
+  return `<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${esc(f.name)} — knitweb</title>
+<link rel="stylesheet" href="/tokens.css">
+<style>
+  body{margin:0;font-family:var(--font,system-ui,sans-serif);background:var(--bg,#0b0e14);color:var(--ink,#e6edf3);line-height:1.5}
+  main{max-width:960px;margin:0 auto;padding:34px 20px 80px}
+  a{color:var(--accent,#3fb6a8);text-decoration:none}
+  header.f{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line,#262d3a);padding:0 0 12px 12px;margin-bottom:22px;border-left:3px solid ${esc(f.accent)}}
+  header.f h1{font-size:22px;margin:0} .dim{color:var(--dim,#8b95a5)} .mono{font-family:var(--mono,ui-monospace,monospace)}
+  .cols{display:grid;grid-template-columns:1.3fr 1fr;gap:22px} @media(max-width:760px){.cols{grid-template-columns:1fr}}
+  .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--dim,#8b95a5);margin:0 0 10px}
+  .sorts{display:flex;gap:6px;margin-bottom:10px} .sorts button{font-size:12px;padding:5px 10px;border-radius:8px;border:1px solid var(--line,#262d3a);background:transparent;color:var(--dim,#8b95a5);cursor:pointer}
+  .sorts button.on{border-color:var(--accent,#3fb6a8);color:var(--ink,#e6edf3)}
+  .knit{padding:11px 13px;border:1px solid var(--line,#262d3a);border-radius:10px;margin-bottom:8px;cursor:pointer;border-left:3px solid ${esc(f.accent)}}
+  .knit .claim{font-weight:600} .knit .meta{font-size:12px;color:var(--dim,#8b95a5);margin-top:3px;display:flex;gap:12px;flex-wrap:wrap}
+  .betwist{color:var(--warn,#e0a83a);border:1px solid var(--warn,#e0a83a);border-radius:20px;padding:0 7px;font-size:11px}
+  .panel{border:1px solid var(--line,#262d3a);border-radius:12px;padding:16px;background:var(--panel,#141a24)}
+  .panel h3{margin:0 0 8px;font-size:15px}
+  label{display:block;font-size:12px;color:var(--dim,#8b95a5);margin:10px 0 4px}
+  input,textarea,select{width:100%;box-sizing:border-box;padding:9px 11px;border-radius:9px;border:1px solid var(--line,#262d3a);background:var(--bg,#0b0e14);color:var(--ink,#e6edf3);font-size:13px;font-family:inherit}
+  textarea{min-height:60px;resize:vertical}
+  pre{background:var(--bg,#0b0e14);border:1px solid var(--line,#262d3a);border-radius:9px;padding:11px;overflow-x:auto;font-size:12px;white-space:pre-wrap;word-break:break-word}
+  .btn{margin-top:12px;padding:10px 14px;border-radius:9px;border:0;background:var(--accent,#3fb6a8);color:#04120f;font-weight:600;cursor:pointer;font-size:13px}
+  .btn:disabled{opacity:.5;cursor:not-allowed} .empty{color:var(--dim,#8b95a5)}
+</style>
+</head>
+<body>
+<main>
+  <header class="f"><h1>${esc(f.name)}</h1><span class="dim">${esc(f.tagline)}</span>
+    <span class="dim" style="margin-left:auto"><a href="/">↩ hub</a></span></header>
+  <div class="cols">
+    <section>
+      <p class="lbl">Top knits</p>
+      <div class="sorts" id="sorts">
+        <button data-sort="score" class="on">score</button>
+        <button data-sort="new">nieuw</button>
+        <button data-sort="betwist">betwist</button>
+      </div>
+      <div id="knits"><p class="empty">Nog geen knits — dien de eerste in →</p></div>
+      <p class="lbl" style="margin-top:26px">Fiber-kaart</p>
+      <div class="panel"><div id="fibers" class="dim">Geen fibers. (graafviz komt later; hier de adjacency-lijst.)</div></div>
+    </section>
+    <aside>
+      <p class="lbl">Knit indienen</p>
+      <div class="panel">
+        <label>Claim</label><textarea id="k-claim" placeholder="bv. Citroenzuur-leach van BOF-slak haalt 61% V bij pH 2,1"></textarea>
+        <label>Bron / assay</label><input id="k-source" placeholder="xrf:XRF-2026-0421" />
+        <label>Licentie</label><input id="k-license" value="CC-BY-4.0" />
+        <label>Tags (komma)</label><input id="k-tags" placeholder="leaching,vanadium" />
+        <p class="lbl" style="margin:14px 0 6px">Canonieke preview + digest</p>
+        <pre id="preview" class="mono">—</pre>
+        <button class="btn" id="sign" disabled>Sign lokaal &amp; download .f1</button>
+        <p class="dim" style="font-size:12px;margin-top:8px">Sleutel blijft lokaal (IndexedDB). v1: submissie = bestand, geen netwerk.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+<script>window.__FIELD__=${inline};window.__KNITS__=${JSON.stringify(knits)};</script>
+<script type="module" src="/field.js"></script>
+</body>
+</html>
+`;
+}
+
 async function main() {
   const fields = await loadFields();
   await rm(DIST, { recursive: true, force: true });
@@ -175,6 +251,13 @@ async function main() {
     JSON.stringify({ knits: 0, fibers: 0, peers: 0, weft: 0, fields: fields.length }),
     "utf8"
   );
+  // Per-field pages (§2.2) + a knits.json search index (empty until ingest KW-008).
+  for (const f of fields.filter((x) => x.status !== "hidden")) {
+    const knits = []; // ingest (KW-008) will populate this from seeds/
+    await mkdir(join(DIST, f.slug), { recursive: true });
+    await writeFile(join(DIST, f.slug, "index.html"), renderField(f, knits), "utf8");
+    await writeFile(join(DIST, f.slug, "knits.json"), JSON.stringify(knits), "utf8");
+  }
   console.log(`✓ build ok — ${fields.length} field(s) → dist/`);
 }
 
