@@ -6,17 +6,14 @@ import { readdir, readFile, mkdir, rm, cp, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { validateField } from "./lib/validate.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const FIELDS = join(ROOT, "fields");
 const STATIC = join(ROOT, "static");
 const CLIENT = join(ROOT, "src", "client");
 const DIST = join(ROOT, "dist");
-
-// Minimal config contract (the full JSON-Schema validator lands in KW-002).
-// KW-001 only guarantees: valid JSON + the required keys of §A3 are present.
-const REQUIRED = ["slug", "name", "accent", "tagline", "status", "order"];
-const STATUS = new Set(["live", "teaser", "hidden"]);
+const SCHEMA_PATH = join(ROOT, "field.schema.json");
 
 class BuildError extends Error {}
 
@@ -27,6 +24,7 @@ function esc(s) {
 
 async function loadFields() {
   if (!existsSync(FIELDS)) return [];
+  const schema = JSON.parse(await readFile(SCHEMA_PATH, "utf8"));
   const files = (await readdir(FIELDS)).filter((f) => f.endsWith(".field.json")).sort();
   const fields = [];
   for (const file of files) {
@@ -37,14 +35,9 @@ async function loadFields() {
     } catch (e) {
       throw new BuildError(`${file}: ongeldige JSON — ${e.message}`);
     }
-    for (const key of REQUIRED) {
-      if (!(key in cfg)) throw new BuildError(`${file}: verplicht veld ontbreekt: "${key}"`);
-    }
-    if (!STATUS.has(cfg.status)) {
-      throw new BuildError(`${file}: status "${cfg.status}" ongeldig (verwacht live|teaser|hidden)`);
-    }
-    if (!Number.isInteger(cfg.order) || cfg.order < 0) {
-      throw new BuildError(`${file}: "order" moet een integer ≥ 0 zijn`);
+    const errs = validateField(cfg, schema); // volledige §A3-validatie (KW-002)
+    if (errs.length) {
+      throw new BuildError(`${file}:\n  - ${errs.join("\n  - ")}`);
     }
     fields.push(cfg);
   }

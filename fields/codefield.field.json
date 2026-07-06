@@ -1,0 +1,8 @@
+{
+  "slug": "codefield",
+  "name": "Codefield",
+  "accent": "#6ea8fe",
+  "tagline": "Code die op het web leeft: commits, releases en specs als knits.",
+  "status": "hidden",
+  "order": 60
+}

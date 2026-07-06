@@ -1,0 +1,9 @@
+{
+  "slug": "ledgerfield",
+  "name": "Ledgerfield",
+  "accent": "#d4a017",
+  "tagline": "Gestemde feiten over grootboeken, transacties en marktdata — P2P.",
+  "status": "teaser",
+  "order": 20,
+  "links": { "repo": "https://github.com/ledgerfield/ledgerfield" }
+}
