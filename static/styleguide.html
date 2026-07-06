@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>knitweb — styleguide (foundry-dark)</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* alleen layout van de guide zelf; componenten komen 100% uit tokens.css */
+  main{max-width:1000px;margin:0 auto;padding:32px 20px 80px}
+  h1{font-size:26px;margin:0 0 4px} .lede{color:var(--dim);margin:0 0 28px}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);
+     margin:34px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px}
+  .accents{display:grid;gap:18px;grid-template-columns:repeat(3,1fr)}
+  @media(max-width:800px){.accents{grid-template-columns:1fr}}
+  .col h3{font:600 12px/1 var(--mono);color:var(--dim);margin:0 0 10px}
+  .stack{display:grid;gap:12px}
+  .swatch{width:100%;height:8px;border-radius:99px;background:var(--accent);margin-bottom:10px}
+</style>
+</head>
+<body>
+<main>
+  <h1>knitweb styleguide <span style="color:var(--accent)">· foundry-dark</span></h1>
+  <p class="lede">Alle componenten uit <code>tokens.css</code>, elk in drie field-accents. Per-field kleur
+     komt uit <code>field.json</code> via <code>--accent</code>; verder één donker palet.</p>
+
+  <div class="accents">
+    <!-- de drie kolommen zetten enkel --accent; identieke markup -->
+    <div class="col" style="--accent:#3fb6a8"><h3>chemfield · #3fb6a8</h3>
+      <div class="swatch"></div>
+      <div class="stack">
+        <a class="field-card" href="#"><span class="badge-status live">live</span><h3>ChemField</h3><p>Getekende scheikunde-feiten uit slak, klei en leach.</p></a>
+        <div class="knit-card">
+          <div class="knit-head"><span class="badge-status live">knit/1</span>
+            <span class="vote-widget"><button class="v up">▲</button><span class="score">61</span><button class="v down">▼</button></span></div>
+          <div class="knit-claim">Citroenzuur-leach van BOF-slak haalt 61% V-yield bij pH 2,1 / 40&nbsp;°C.</div>
+          <div class="knit-meta"><span class="tag">leaching</span><span class="tag">vanadium</span>
+            <span>bron <span class="hash">xrf:XRF-2026-0421</span></span>
+            <span>door <span class="hash">aa61b794ba668ff67c7b8d03</span></span></div>
+        </div>
+        <div class="strip"><span>knits <b>128</b></span><span>votes <b>2.4k</b></span><span>betwist <b>3</b></span></div>
+      </div>
+    </div>
+
+    <div class="col" style="--accent:#f4b41a"><h3>gangfield · #f4b41a</h3>
+      <div class="swatch"></div>
+      <div class="stack">
+        <a class="field-card" href="#"><span class="badge-status teaser">teaser</span><h3>Gangfield</h3><p>Gestemde feiten over samenwerking en gilden op de fabric.</p></a>
+        <div class="knit-card">
+          <div class="knit-head"><span class="badge-status teaser">knit/1</span>
+            <span class="vote-widget betwist"><button class="v up">▲</button><span class="score">4</span><button class="v down">▼</button></span></div>
+          <div class="knit-claim">Een betwiste claim: down/(up+down) ≥ 0,25 en totaal ≥ 8 → score in rood.</div>
+          <div class="knit-meta"><span class="tag">governance</span>
+            <span>id <span class="hash">a1a401b6c487c5013bc04661a9d524cd922418a5</span></span></div>
+        </div>
+        <div class="strip"><span>peers <b>17</b></span><span>quorum <b>5/9</b></span></div>
+      </div>
+    </div>
+
+    <div class="col" style="--accent:#d4a017"><h3>ledgerfield · #d4a017</h3>
+      <div class="swatch"></div>
+      <div class="stack">
+        <a class="field-card" href="#"><span class="badge-status teaser">teaser</span><h3>Ledgerfield</h3><p>Gestemde feiten over grootboeken, transacties en marktdata — P2P.</p></a>
+        <div class="knit-card">
+          <div class="knit-head"><span class="badge-status hidden">hidden</span>
+            <span class="vote-widget"><button class="v up">▲</button><span class="score">0</span><button class="v down">▼</button></span></div>
+          <div class="knit-claim">Verborgen field toont een neutrale badge; geen pagina in de build (§A6).</div>
+          <div class="knit-meta"><span class="tag">ledger</span><span class="tag">market</span></div>
+        </div>
+        <div class="strip"><span>records <b>0</b></span><span>status <b>coming soon</b></span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>losse componenten</h2>
+  <p><span class="badge-status live">live</span> <span class="badge-status teaser">teaser</span>
+     <span class="badge-status hidden">hidden</span> &nbsp;·&nbsp;
+     hash: <span class="hash">71eb3a4d10036dc74ad9720a03e84abc6ec883b77455ea853dfb1fa76ed6636c</span>
+     (mono, afgekapt) &nbsp;·&nbsp;
+     <span class="vote-widget"><button class="v up">▲</button><span class="score">12</span><button class="v down">▼</button></span></p>
+
+  <p style="color:var(--dim);font-size:.85rem;margin-top:30px">
+     Geen framework, geen webfonts (system-stack). <code>prefers-reduced-motion</code> wordt gerespecteerd.
+     Onderdeel van de <a href="https://github.com/Knitweb/knitweb/blob/main/docs/SPEC-v0.1.md">field-kit spec</a>.</p>
+</main>
+</body>
+</html>
