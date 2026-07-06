@@ -4,14 +4,15 @@
 // Fails hard (exit != 0) with a readable error on an invalid field config.
 import { readdir, readFile, mkdir, rm, cp, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const FIELDS = join(ROOT, "fields");
 const STATIC = join(ROOT, "static");
 const CLIENT = join(ROOT, "src", "client");
-const DIST = join(ROOT, "dist");
+// Output dir: default dist/, override met KNITWEB_DIST (bv. voor geïsoleerde test-builds).
+const DIST = process.env.KNITWEB_DIST ? resolve(process.env.KNITWEB_DIST) : join(ROOT, "dist");
 
 // Minimal config contract (the full JSON-Schema validator lands in KW-002).
 // KW-001 only guarantees: valid JSON + the required keys of §A3 are present.
