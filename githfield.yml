@@ -1,0 +1,11 @@
+# githfield.yml — links this repo's docs & backlog into githfield
+field:   knitweb
+name:    KnitWeb field-kit
+accent:  "#3fb6a8"
+summary: Field-kit monorepo — one codebase, N niche portals over the hub
+homepage: https://knitweb.art
+backlog:
+  labels: [agent]
+  group_by: "nacht-"
+docs:
+  - { title: "Field-Kit Spec v0.1", path: "docs/SPEC-v0.1.md", stage: spec }
