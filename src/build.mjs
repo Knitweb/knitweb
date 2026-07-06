@@ -244,21 +244,41 @@ async function main() {
   if (existsSync(STATIC)) await cp(STATIC, DIST, { recursive: true });
   await bundleClient();
   await writeFile(join(DIST, "index.html"), renderHub(fields), "utf8");
-  // Fabric-strip source (§A6). Real counts arrive with ingest (KW-008); until then
-  // a zero stub keeps the hub's strip working with a graceful "0" instead of a fetch error.
+  // Ingest per-field seeds (KW-008): seeds/<slug>.knits.json → the field's knits +
+  // fibers. Invalid JSON fails the build hard with the filename.
+  const SEEDS = join(ROOT, "seeds");
+  const live = fields.filter((x) => x.status !== "hidden");
+  const seedOf = async (slug) => {
+    const p = join(SEEDS, `${slug}.knits.json`);
+    if (!existsSync(p)) return { knits: [], fibers: [] };
+    try {
+      const s = JSON.parse(await readFile(p, "utf8"));
+      return { knits: s.knits || [], fibers: s.fibers || [] };
+    } catch (e) {
+      throw new BuildError(`seeds/${slug}.knits.json: ongeldige JSON — ${e.message}`);
+    }
+  };
+  const seeds = {};
+  let totKnits = 0, totFibers = 0;
+  for (const f of live) {
+    seeds[f.slug] = await seedOf(f.slug);
+    totKnits += seeds[f.slug].knits.length;
+    totFibers += seeds[f.slug].fibers.length;
+  }
+  // Fabric-strip source (§A6): real counts from the ingested seeds.
   await writeFile(
     join(DIST, "stats.json"),
-    JSON.stringify({ knits: 0, fibers: 0, peers: 0, weft: 0, fields: fields.length }),
+    JSON.stringify({ knits: totKnits, fibers: totFibers, peers: 0, weft: 0, fields: fields.length }),
     "utf8"
   );
-  // Per-field pages (§2.2) + a knits.json search index (empty until ingest KW-008).
-  for (const f of fields.filter((x) => x.status !== "hidden")) {
-    const knits = []; // ingest (KW-008) will populate this from seeds/
+  // Per-field pages (§2.2) + a knits.json search index, populated from the seeds.
+  for (const f of live) {
+    const knits = seeds[f.slug].knits;
     await mkdir(join(DIST, f.slug), { recursive: true });
     await writeFile(join(DIST, f.slug, "index.html"), renderField(f, knits), "utf8");
     await writeFile(join(DIST, f.slug, "knits.json"), JSON.stringify(knits), "utf8");
   }
-  console.log(`✓ build ok — ${fields.length} field(s) → dist/`);
+  console.log(`✓ build ok — ${fields.length} field(s), ${totKnits} knits + ${totFibers} fibers → dist/`);
 }
 
 main().catch((e) => {

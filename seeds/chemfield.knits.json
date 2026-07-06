@@ -1,0 +1,885 @@
+{
+ "field": "chemfield",
+ "knits": [
+  {
+   "id": "knit:record:bof-slag:ijmuiden:typical-range:v1:CaO",
+   "claim": "BOF slak bevat CaO 40.0–45.0 wt% (source_range)",
+   "tags": [
+    "CaO",
+    "composition",
+    "BOF slak"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier, source:yildirim-prezzi-2011-steel-slag-review",
+   "score": 0,
+   "fibers": 5
+  },
+  {
+   "id": "knit:record:bof-slag:ijmuiden:typical-range:v1:SiO2",
+   "claim": "BOF slak bevat SiO2 12.0–15.0 wt% (source_range)",
+   "tags": [
+    "SiO2",
+    "composition",
+    "BOF slak"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier, source:yildirim-prezzi-2011-steel-slag-review",
+   "score": 0,
+   "fibers": 5
+  },
+  {
+   "id": "knit:record:bof-slag:ijmuiden:typical-range:v1:FeO_Fe2O3",
+   "claim": "BOF slak bevat FeO_Fe2O3 18.0–25.0 wt% (source_range)",
+   "tags": [
+    "FeO_Fe2O3",
+    "composition",
+    "BOF slak"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier, source:yildirim-prezzi-2011-steel-slag-review",
+   "score": 0,
+   "fibers": 5
+  },
+  {
+   "id": "knit:record:bof-slag:ijmuiden:typical-range:v1:MgO",
+   "claim": "BOF slak bevat MgO 5.0–8.0 wt% (source_range)",
+   "tags": [
+    "MgO",
+    "composition",
+    "BOF slak"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier, source:yildirim-prezzi-2011-steel-slag-review",
+   "score": 0,
+   "fibers": 5
+  },
+  {
+   "id": "knit:record:bof-slag:ijmuiden:typical-range:v1:MnO",
+   "claim": "BOF slak bevat MnO 3.0–5.0 wt% (source_range)",
+   "tags": [
+    "MnO",
+    "composition",
+    "BOF slak"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier, source:yildirim-prezzi-2011-steel-slag-review",
+   "score": 0,
+   "fibers": 5
+  },
+  {
+   "id": "knit:record:bof-slag:ijmuiden:typical-range:v1:Al2O3",
+   "claim": "BOF slak bevat Al2O3 2.0–4.0 wt% (source_range)",
+   "tags": [
+    "Al2O3",
+    "composition",
+    "BOF slak"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier, source:yildirim-prezzi-2011-steel-slag-review",
+   "score": 0,
+   "fibers": 5
+  },
+  {
+   "id": "knit:record:bof-slag:ijmuiden:typical-range:v1:P2O5",
+   "claim": "BOF slak bevat P2O5 1.5–2.5 wt% (source_range)",
+   "tags": [
+    "P2O5",
+    "composition",
+    "BOF slak"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier, source:yildirim-prezzi-2011-steel-slag-review",
+   "score": 0,
+   "fibers": 5
+  },
+  {
+   "id": "knit:record:bof-slag:ijmuiden:typical-range:v1:V2O5",
+   "claim": "BOF slak bevat V2O5 0.8–1.5 wt% (source_range)",
+   "tags": [
+    "V2O5",
+    "composition",
+    "BOF slak"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier",
+   "score": 0,
+   "fibers": 5
+  },
+  {
+   "id": "knit:record:bof-slag:ijmuiden:typical-range:v1:Cr2O3",
+   "claim": "BOF slak bevat Cr2O3 0.2–0.5 wt% (source_range)",
+   "tags": [
+    "Cr2O3",
+    "composition",
+    "BOF slak"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier",
+   "score": 0,
+   "fibers": 5
+  },
+  {
+   "id": "knit:record:bof-slag:ijmuiden:typical-range:v1:TiO2",
+   "claim": "BOF slak bevat TiO2 0.3–0.7 wt% (source_range)",
+   "tags": [
+    "TiO2",
+    "composition",
+    "BOF slak"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier",
+   "score": 0,
+   "fibers": 5
+  },
+  {
+   "id": "knit:var:var:particle-size:max",
+   "claim": "Korrelgrootte doel = 5 micrometer_max",
+   "tags": [
+    "variable"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier",
+   "score": 0,
+   "fibers": 2
+  },
+  {
+   "id": "knit:var:var:density-cut",
+   "claim": "Dichtheids-cut = 3900 g_per_cm3_x1000",
+   "tags": [
+    "variable"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier",
+   "score": 0,
+   "fibers": 2
+  },
+  {
+   "id": "knit:var:var:ultrasound:low",
+   "claim": "Ultrasoon cavitatie laag = 28 kHz",
+   "tags": [
+    "variable"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier",
+   "score": 0,
+   "fibers": 2
+  },
+  {
+   "id": "knit:var:var:ultrasound:high",
+   "claim": "Ultrasoon cavitatie hoog = 40 kHz",
+   "tags": [
+    "variable"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier",
+   "score": 0,
+   "fibers": 2
+  },
+  {
+   "id": "knit:var:var:leach:pH",
+   "claim": "Basische loging pH = 1100 pH_x100",
+   "tags": [
+    "variable"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier",
+   "score": 0,
+   "fibers": 2
+  },
+  {
+   "id": "knit:var:var:leach:temperature",
+   "claim": "Basische loging temperatuur = 80 celsius",
+   "tags": [
+    "variable"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier",
+   "score": 0,
+   "fibers": 2
+  },
+  {
+   "id": "knit:var:var:autoclave:temperature",
+   "claim": "Autoclaaf temperatuur = 150 celsius",
+   "tags": [
+    "variable"
+   ],
+   "source": "source:smartslag-kivi-2026-local-dossier",
+   "score": 0,
+   "fibers": 2
+  },
+  {
+   "id": "knit:var:var:clay-composition:measurement-required",
+   "claim": "Noord-Hollandse klei meetplicht = True boolean",
+   "tags": [
+    "variable"
+   ],
+   "source": "source:bro-geotop-gtm",
+   "score": 0,
+   "fibers": 2
+  },
+  {
+   "id": "knit:var:var:clay-mass-balance:dry-basis",
+   "claim": "Noord-Hollandse klei droge-massabasis = 1000 kg_dry_clay",
+   "tags": [
+    "variable"
+   ],
+   "source": "source:bro-geotop-gtm",
+   "score": 0,
+   "fibers": 2
+  },
+  {
+   "id": "knit:var:var:clay-mass-balance:closure-required",
+   "claim": "Klei massabalans sluiting vereist = True boolean",
+   "tags": [
+    "variable"
+   ],
+   "source": "source:bro-geotop-gtm",
+   "score": 0,
+   "fibers": 2
+  },
+  {
+   "id": "knit:var:var:enrichment-factor:locked",
+   "claim": "Verrijkingsfactor vergrendeld = True boolean",
+   "tags": [
+    "variable"
+   ],
+   "source": "source:bro-geotop-gtm",
+   "score": 0,
+   "fibers": 2
+  }
+ ],
+ "fibers": [
+  {
+   "id": "fiber:record:bof-slag:ijmuiden:typical-range:v1:chemfield:hasMaterial:material:bof-ld-steel-slag",
+   "rel": "chemfield:hasMaterial",
+   "from": "record:bof-slag:ijmuiden:typical-range:v1",
+   "to": "material:bof-ld-steel-slag"
+  },
+  {
+   "id": "fiber:record:bof-slag:ijmuiden:typical-range:v1:chemfield:hasSource:source:smartslag-kivi-2026-local-dossier",
+   "rel": "chemfield:hasSource",
+   "from": "record:bof-slag:ijmuiden:typical-range:v1",
+   "to": "source:smartslag-kivi-2026-local-dossier"
+  },
+  {
+   "id": "fiber:record:bof-slag:ijmuiden:typical-range:v1:chemfield:hasSource:source:yildirim-prezzi-2011-steel-slag-review",
+   "rel": "chemfield:hasSource",
+   "from": "record:bof-slag:ijmuiden:typical-range:v1",
+   "to": "source:yildirim-prezzi-2011-steel-slag-review"
+  },
+  {
+   "id": "fiber:record:bof-slag:ijmuiden:typical-range:v1:chemfield:hasMeasurementStatus:range_from_local_operator_dossier_plus_literature_context",
+   "rel": "chemfield:hasMeasurementStatus",
+   "from": "record:bof-slag:ijmuiden:typical-range:v1",
+   "to": "range_from_local_operator_dossier_plus_literature_context"
+  },
+  {
+   "id": "fiber:record:bof-slag:ijmuiden:typical-range:v1:chemfield:hasMassBalance:massbalance:bof-slag:ijmuiden:typical-range:1000kg-dry:v1",
+   "rel": "chemfield:hasMassBalance",
+   "from": "record:bof-slag:ijmuiden:typical-range:v1",
+   "to": "massbalance:bof-slag:ijmuiden:typical-range:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:record:nh-clay:amsterdam-ijpolder:0-50cm:v1:chemfield:hasMaterial:material:noord-holland-clay",
+   "rel": "chemfield:hasMaterial",
+   "from": "record:nh-clay:amsterdam-ijpolder:0-50cm:v1",
+   "to": "material:noord-holland-clay"
+  },
+  {
+   "id": "fiber:record:nh-clay:amsterdam-ijpolder:0-50cm:v1:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "record:nh-clay:amsterdam-ijpolder:0-50cm:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:record:nh-clay:amsterdam-ijpolder:0-50cm:v1:chemfield:hasMeasurementStatus:not_measured_in_attached_source",
+   "rel": "chemfield:hasMeasurementStatus",
+   "from": "record:nh-clay:amsterdam-ijpolder:0-50cm:v1",
+   "to": "not_measured_in_attached_source"
+  },
+  {
+   "id": "fiber:record:nh-clay:amsterdam-ijpolder:0-50cm:v1:chemfield:hasMassBalance:massbalance:nh-clay:amsterdam-ijpolder:0-50cm:1000kg-dry:v1",
+   "rel": "chemfield:hasMassBalance",
+   "from": "record:nh-clay:amsterdam-ijpolder:0-50cm:v1",
+   "to": "massbalance:nh-clay:amsterdam-ijpolder:0-50cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:record:nh-clay:amsterdam-ijpolder:200-400cm:v1:chemfield:hasMaterial:material:noord-holland-clay",
+   "rel": "chemfield:hasMaterial",
+   "from": "record:nh-clay:amsterdam-ijpolder:200-400cm:v1",
+   "to": "material:noord-holland-clay"
+  },
+  {
+   "id": "fiber:record:nh-clay:amsterdam-ijpolder:200-400cm:v1:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "record:nh-clay:amsterdam-ijpolder:200-400cm:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:record:nh-clay:amsterdam-ijpolder:200-400cm:v1:chemfield:hasMeasurementStatus:not_measured_in_attached_source",
+   "rel": "chemfield:hasMeasurementStatus",
+   "from": "record:nh-clay:amsterdam-ijpolder:200-400cm:v1",
+   "to": "not_measured_in_attached_source"
+  },
+  {
+   "id": "fiber:record:nh-clay:amsterdam-ijpolder:200-400cm:v1:chemfield:hasMassBalance:massbalance:nh-clay:amsterdam-ijpolder:200-400cm:1000kg-dry:v1",
+   "rel": "chemfield:hasMassBalance",
+   "from": "record:nh-clay:amsterdam-ijpolder:200-400cm:v1",
+   "to": "massbalance:nh-clay:amsterdam-ijpolder:200-400cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:record:nh-clay:beemster:0-50cm:v1:chemfield:hasMaterial:material:noord-holland-clay",
+   "rel": "chemfield:hasMaterial",
+   "from": "record:nh-clay:beemster:0-50cm:v1",
+   "to": "material:noord-holland-clay"
+  },
+  {
+   "id": "fiber:record:nh-clay:beemster:0-50cm:v1:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "record:nh-clay:beemster:0-50cm:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:record:nh-clay:beemster:0-50cm:v1:chemfield:hasMeasurementStatus:not_measured_in_attached_source",
+   "rel": "chemfield:hasMeasurementStatus",
+   "from": "record:nh-clay:beemster:0-50cm:v1",
+   "to": "not_measured_in_attached_source"
+  },
+  {
+   "id": "fiber:record:nh-clay:beemster:150-300cm:v1:chemfield:hasMaterial:material:noord-holland-clay",
+   "rel": "chemfield:hasMaterial",
+   "from": "record:nh-clay:beemster:150-300cm:v1",
+   "to": "material:noord-holland-clay"
+  },
+  {
+   "id": "fiber:record:nh-clay:beemster:150-300cm:v1:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "record:nh-clay:beemster:150-300cm:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:record:nh-clay:beemster:150-300cm:v1:chemfield:hasMeasurementStatus:not_measured_in_attached_source",
+   "rel": "chemfield:hasMeasurementStatus",
+   "from": "record:nh-clay:beemster:150-300cm:v1",
+   "to": "not_measured_in_attached_source"
+  },
+  {
+   "id": "fiber:record:nh-clay:haarlemmermeer:0-50cm:v1:chemfield:hasMaterial:material:noord-holland-clay",
+   "rel": "chemfield:hasMaterial",
+   "from": "record:nh-clay:haarlemmermeer:0-50cm:v1",
+   "to": "material:noord-holland-clay"
+  },
+  {
+   "id": "fiber:record:nh-clay:haarlemmermeer:0-50cm:v1:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "record:nh-clay:haarlemmermeer:0-50cm:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:record:nh-clay:haarlemmermeer:0-50cm:v1:chemfield:hasMeasurementStatus:not_measured_in_attached_source",
+   "rel": "chemfield:hasMeasurementStatus",
+   "from": "record:nh-clay:haarlemmermeer:0-50cm:v1",
+   "to": "not_measured_in_attached_source"
+  },
+  {
+   "id": "fiber:record:nh-clay:haarlemmermeer:200-400cm:v1:chemfield:hasMaterial:material:noord-holland-clay",
+   "rel": "chemfield:hasMaterial",
+   "from": "record:nh-clay:haarlemmermeer:200-400cm:v1",
+   "to": "material:noord-holland-clay"
+  },
+  {
+   "id": "fiber:record:nh-clay:haarlemmermeer:200-400cm:v1:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "record:nh-clay:haarlemmermeer:200-400cm:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:record:nh-clay:haarlemmermeer:200-400cm:v1:chemfield:hasMeasurementStatus:not_measured_in_attached_source",
+   "rel": "chemfield:hasMeasurementStatus",
+   "from": "record:nh-clay:haarlemmermeer:200-400cm:v1",
+   "to": "not_measured_in_attached_source"
+  },
+  {
+   "id": "fiber:record:nh-clay:wieringermeer:0-50cm:v1:chemfield:hasMaterial:material:noord-holland-clay",
+   "rel": "chemfield:hasMaterial",
+   "from": "record:nh-clay:wieringermeer:0-50cm:v1",
+   "to": "material:noord-holland-clay"
+  },
+  {
+   "id": "fiber:record:nh-clay:wieringermeer:0-50cm:v1:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "record:nh-clay:wieringermeer:0-50cm:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:record:nh-clay:wieringermeer:0-50cm:v1:chemfield:hasMeasurementStatus:not_measured_in_attached_source",
+   "rel": "chemfield:hasMeasurementStatus",
+   "from": "record:nh-clay:wieringermeer:0-50cm:v1",
+   "to": "not_measured_in_attached_source"
+  },
+  {
+   "id": "fiber:record:nh-clay:wieringermeer:200-500cm:v1:chemfield:hasMaterial:material:noord-holland-clay",
+   "rel": "chemfield:hasMaterial",
+   "from": "record:nh-clay:wieringermeer:200-500cm:v1",
+   "to": "material:noord-holland-clay"
+  },
+  {
+   "id": "fiber:record:nh-clay:wieringermeer:200-500cm:v1:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "record:nh-clay:wieringermeer:200-500cm:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:record:nh-clay:wieringermeer:200-500cm:v1:chemfield:hasMeasurementStatus:not_measured_in_attached_source",
+   "rel": "chemfield:hasMeasurementStatus",
+   "from": "record:nh-clay:wieringermeer:200-500cm:v1",
+   "to": "not_measured_in_attached_source"
+  },
+  {
+   "id": "fiber:record:nh-clay:west-friesland-enkhuizen:0-50cm:v1:chemfield:hasMaterial:material:noord-holland-clay",
+   "rel": "chemfield:hasMaterial",
+   "from": "record:nh-clay:west-friesland-enkhuizen:0-50cm:v1",
+   "to": "material:noord-holland-clay"
+  },
+  {
+   "id": "fiber:record:nh-clay:west-friesland-enkhuizen:0-50cm:v1:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "record:nh-clay:west-friesland-enkhuizen:0-50cm:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:record:nh-clay:west-friesland-enkhuizen:0-50cm:v1:chemfield:hasMeasurementStatus:not_measured_in_attached_source",
+   "rel": "chemfield:hasMeasurementStatus",
+   "from": "record:nh-clay:west-friesland-enkhuizen:0-50cm:v1",
+   "to": "not_measured_in_attached_source"
+  },
+  {
+   "id": "fiber:record:nh-clay:west-friesland-enkhuizen:150-350cm:v1:chemfield:hasMaterial:material:noord-holland-clay",
+   "rel": "chemfield:hasMaterial",
+   "from": "record:nh-clay:west-friesland-enkhuizen:150-350cm:v1",
+   "to": "material:noord-holland-clay"
+  },
+  {
+   "id": "fiber:record:nh-clay:west-friesland-enkhuizen:150-350cm:v1:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "record:nh-clay:west-friesland-enkhuizen:150-350cm:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:record:nh-clay:west-friesland-enkhuizen:150-350cm:v1:chemfield:hasMeasurementStatus:not_measured_in_attached_source",
+   "rel": "chemfield:hasMeasurementStatus",
+   "from": "record:nh-clay:west-friesland-enkhuizen:150-350cm:v1",
+   "to": "not_measured_in_attached_source"
+  },
+  {
+   "id": "fiber:var:basicity:cao-sio2:chemfield:hasVariableStatus:derivable_from_bof_range",
+   "rel": "chemfield:hasVariableStatus",
+   "from": "var:basicity:cao-sio2",
+   "to": "derivable_from_bof_range"
+  },
+  {
+   "id": "fiber:var:basicity:cao-sio2:chemfield:hasSource:source:smartslag-kivi-2026-local-dossier",
+   "rel": "chemfield:hasSource",
+   "from": "var:basicity:cao-sio2",
+   "to": "source:smartslag-kivi-2026-local-dossier"
+  },
+  {
+   "id": "fiber:var:particle-size:max:chemfield:hasVariableStatus:operator_parameter",
+   "rel": "chemfield:hasVariableStatus",
+   "from": "var:particle-size:max",
+   "to": "operator_parameter"
+  },
+  {
+   "id": "fiber:var:particle-size:max:chemfield:hasSource:source:smartslag-kivi-2026-local-dossier",
+   "rel": "chemfield:hasSource",
+   "from": "var:particle-size:max",
+   "to": "source:smartslag-kivi-2026-local-dossier"
+  },
+  {
+   "id": "fiber:var:density-cut:chemfield:hasVariableStatus:operator_parameter",
+   "rel": "chemfield:hasVariableStatus",
+   "from": "var:density-cut",
+   "to": "operator_parameter"
+  },
+  {
+   "id": "fiber:var:density-cut:chemfield:hasSource:source:smartslag-kivi-2026-local-dossier",
+   "rel": "chemfield:hasSource",
+   "from": "var:density-cut",
+   "to": "source:smartslag-kivi-2026-local-dossier"
+  },
+  {
+   "id": "fiber:var:ultrasound:low:chemfield:hasVariableStatus:operator_parameter",
+   "rel": "chemfield:hasVariableStatus",
+   "from": "var:ultrasound:low",
+   "to": "operator_parameter"
+  },
+  {
+   "id": "fiber:var:ultrasound:low:chemfield:hasSource:source:smartslag-kivi-2026-local-dossier",
+   "rel": "chemfield:hasSource",
+   "from": "var:ultrasound:low",
+   "to": "source:smartslag-kivi-2026-local-dossier"
+  },
+  {
+   "id": "fiber:var:ultrasound:high:chemfield:hasVariableStatus:operator_parameter",
+   "rel": "chemfield:hasVariableStatus",
+   "from": "var:ultrasound:high",
+   "to": "operator_parameter"
+  },
+  {
+   "id": "fiber:var:ultrasound:high:chemfield:hasSource:source:smartslag-kivi-2026-local-dossier",
+   "rel": "chemfield:hasSource",
+   "from": "var:ultrasound:high",
+   "to": "source:smartslag-kivi-2026-local-dossier"
+  },
+  {
+   "id": "fiber:var:leach:pH:chemfield:hasVariableStatus:operator_parameter",
+   "rel": "chemfield:hasVariableStatus",
+   "from": "var:leach:pH",
+   "to": "operator_parameter"
+  },
+  {
+   "id": "fiber:var:leach:pH:chemfield:hasSource:source:smartslag-kivi-2026-local-dossier",
+   "rel": "chemfield:hasSource",
+   "from": "var:leach:pH",
+   "to": "source:smartslag-kivi-2026-local-dossier"
+  },
+  {
+   "id": "fiber:var:leach:temperature:chemfield:hasVariableStatus:operator_parameter",
+   "rel": "chemfield:hasVariableStatus",
+   "from": "var:leach:temperature",
+   "to": "operator_parameter"
+  },
+  {
+   "id": "fiber:var:leach:temperature:chemfield:hasSource:source:smartslag-kivi-2026-local-dossier",
+   "rel": "chemfield:hasSource",
+   "from": "var:leach:temperature",
+   "to": "source:smartslag-kivi-2026-local-dossier"
+  },
+  {
+   "id": "fiber:var:autoclave:temperature:chemfield:hasVariableStatus:operator_parameter",
+   "rel": "chemfield:hasVariableStatus",
+   "from": "var:autoclave:temperature",
+   "to": "operator_parameter"
+  },
+  {
+   "id": "fiber:var:autoclave:temperature:chemfield:hasSource:source:smartslag-kivi-2026-local-dossier",
+   "rel": "chemfield:hasSource",
+   "from": "var:autoclave:temperature",
+   "to": "source:smartslag-kivi-2026-local-dossier"
+  },
+  {
+   "id": "fiber:var:clay-composition:measurement-required:chemfield:hasVariableStatus:required_before_enrichment_claim",
+   "rel": "chemfield:hasVariableStatus",
+   "from": "var:clay-composition:measurement-required",
+   "to": "required_before_enrichment_claim"
+  },
+  {
+   "id": "fiber:var:clay-composition:measurement-required:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "var:clay-composition:measurement-required",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:alias:fieldchem:chemfield:resolvesTo:chemfield:smartslag:composition",
+   "rel": "chemfield:resolvesTo",
+   "from": "alias:fieldchem",
+   "to": "chemfield:smartslag:composition"
+  },
+  {
+   "id": "fiber:alias:openchem:chemfield:resolvesTo:chemfield:smartslag:composition",
+   "rel": "chemfield:resolvesTo",
+   "from": "alias:openchem",
+   "to": "chemfield:smartslag:composition"
+  },
+  {
+   "id": "fiber:alias:webchem:chemfield:resolvesTo:chemfield:smartslag:composition",
+   "rel": "chemfield:resolvesTo",
+   "from": "alias:webchem",
+   "to": "chemfield:smartslag:composition"
+  },
+  {
+   "id": "fiber:alias:chemweb:chemfield:resolvesTo:chemfield:smartslag:composition",
+   "rel": "chemfield:resolvesTo",
+   "from": "alias:chemweb",
+   "to": "chemfield:smartslag:composition"
+  },
+  {
+   "id": "fiber:alias:chemfield:chemfield:resolvesTo:chemfield:smartslag:composition",
+   "rel": "chemfield:resolvesTo",
+   "from": "alias:chemfield",
+   "to": "chemfield:smartslag:composition"
+  },
+  {
+   "id": "fiber:massbalance:bof-slag:ijmuiden:typical-range:1000kg-dry:v1:chemfield:usesSource:source:smartslag-kivi-2026-local-dossier",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:bof-slag:ijmuiden:typical-range:1000kg-dry:v1",
+   "to": "source:smartslag-kivi-2026-local-dossier"
+  },
+  {
+   "id": "fiber:massbalance:bof-slag:ijmuiden:typical-range:1000kg-dry:v1:chemfield:usesSource:source:yildirim-prezzi-2011-steel-slag-review",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:bof-slag:ijmuiden:typical-range:1000kg-dry:v1",
+   "to": "source:yildirim-prezzi-2011-steel-slag-review"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasBofReferenceMassBalance:massbalance:bof-slag:ijmuiden:typical-range:1000kg-dry:v1",
+   "rel": "chemfield:hasBofReferenceMassBalance",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "massbalance:bof-slag:ijmuiden:typical-range:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasMassBalanceStatus:clay_mass_balance_templates_added_numeric_enrichment_locked",
+   "rel": "chemfield:hasMassBalanceStatus",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "clay_mass_balance_templates_added_numeric_enrichment_locked"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:amsterdam-ijpolder:0-50cm:1000kg-dry:v1:chemfield:usesSource:source:bro-geotop-gtm",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:nh-clay:amsterdam-ijpolder:0-50cm:1000kg-dry:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:amsterdam-ijpolder:0-50cm:1000kg-dry:v1:chemfield:hasClosureStatus:not_closed_no_lab_assay_attached",
+   "rel": "chemfield:hasClosureStatus",
+   "from": "massbalance:nh-clay:amsterdam-ijpolder:0-50cm:1000kg-dry:v1",
+   "to": "not_closed_no_lab_assay_attached"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasClayMassBalance:massbalance:nh-clay:amsterdam-ijpolder:0-50cm:1000kg-dry:v1",
+   "rel": "chemfield:hasClayMassBalance",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "massbalance:nh-clay:amsterdam-ijpolder:0-50cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:amsterdam-ijpolder:200-400cm:1000kg-dry:v1:chemfield:usesSource:source:bro-geotop-gtm",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:nh-clay:amsterdam-ijpolder:200-400cm:1000kg-dry:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:amsterdam-ijpolder:200-400cm:1000kg-dry:v1:chemfield:hasClosureStatus:not_closed_no_lab_assay_attached",
+   "rel": "chemfield:hasClosureStatus",
+   "from": "massbalance:nh-clay:amsterdam-ijpolder:200-400cm:1000kg-dry:v1",
+   "to": "not_closed_no_lab_assay_attached"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasClayMassBalance:massbalance:nh-clay:amsterdam-ijpolder:200-400cm:1000kg-dry:v1",
+   "rel": "chemfield:hasClayMassBalance",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "massbalance:nh-clay:amsterdam-ijpolder:200-400cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:record:nh-clay:beemster:0-50cm:v1:chemfield:hasMassBalance:massbalance:nh-clay:beemster:0-50cm:1000kg-dry:v1",
+   "rel": "chemfield:hasMassBalance",
+   "from": "record:nh-clay:beemster:0-50cm:v1",
+   "to": "massbalance:nh-clay:beemster:0-50cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:beemster:0-50cm:1000kg-dry:v1:chemfield:usesSource:source:bro-geotop-gtm",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:nh-clay:beemster:0-50cm:1000kg-dry:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:beemster:0-50cm:1000kg-dry:v1:chemfield:hasClosureStatus:not_closed_no_lab_assay_attached",
+   "rel": "chemfield:hasClosureStatus",
+   "from": "massbalance:nh-clay:beemster:0-50cm:1000kg-dry:v1",
+   "to": "not_closed_no_lab_assay_attached"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasClayMassBalance:massbalance:nh-clay:beemster:0-50cm:1000kg-dry:v1",
+   "rel": "chemfield:hasClayMassBalance",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "massbalance:nh-clay:beemster:0-50cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:record:nh-clay:beemster:150-300cm:v1:chemfield:hasMassBalance:massbalance:nh-clay:beemster:150-300cm:1000kg-dry:v1",
+   "rel": "chemfield:hasMassBalance",
+   "from": "record:nh-clay:beemster:150-300cm:v1",
+   "to": "massbalance:nh-clay:beemster:150-300cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:beemster:150-300cm:1000kg-dry:v1:chemfield:usesSource:source:bro-geotop-gtm",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:nh-clay:beemster:150-300cm:1000kg-dry:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:beemster:150-300cm:1000kg-dry:v1:chemfield:hasClosureStatus:not_closed_no_lab_assay_attached",
+   "rel": "chemfield:hasClosureStatus",
+   "from": "massbalance:nh-clay:beemster:150-300cm:1000kg-dry:v1",
+   "to": "not_closed_no_lab_assay_attached"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasClayMassBalance:massbalance:nh-clay:beemster:150-300cm:1000kg-dry:v1",
+   "rel": "chemfield:hasClayMassBalance",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "massbalance:nh-clay:beemster:150-300cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:record:nh-clay:haarlemmermeer:0-50cm:v1:chemfield:hasMassBalance:massbalance:nh-clay:haarlemmermeer:0-50cm:1000kg-dry:v1",
+   "rel": "chemfield:hasMassBalance",
+   "from": "record:nh-clay:haarlemmermeer:0-50cm:v1",
+   "to": "massbalance:nh-clay:haarlemmermeer:0-50cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:haarlemmermeer:0-50cm:1000kg-dry:v1:chemfield:usesSource:source:bro-geotop-gtm",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:nh-clay:haarlemmermeer:0-50cm:1000kg-dry:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:haarlemmermeer:0-50cm:1000kg-dry:v1:chemfield:hasClosureStatus:not_closed_no_lab_assay_attached",
+   "rel": "chemfield:hasClosureStatus",
+   "from": "massbalance:nh-clay:haarlemmermeer:0-50cm:1000kg-dry:v1",
+   "to": "not_closed_no_lab_assay_attached"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasClayMassBalance:massbalance:nh-clay:haarlemmermeer:0-50cm:1000kg-dry:v1",
+   "rel": "chemfield:hasClayMassBalance",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "massbalance:nh-clay:haarlemmermeer:0-50cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:record:nh-clay:haarlemmermeer:200-400cm:v1:chemfield:hasMassBalance:massbalance:nh-clay:haarlemmermeer:200-400cm:1000kg-dry:v1",
+   "rel": "chemfield:hasMassBalance",
+   "from": "record:nh-clay:haarlemmermeer:200-400cm:v1",
+   "to": "massbalance:nh-clay:haarlemmermeer:200-400cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:haarlemmermeer:200-400cm:1000kg-dry:v1:chemfield:usesSource:source:bro-geotop-gtm",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:nh-clay:haarlemmermeer:200-400cm:1000kg-dry:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:haarlemmermeer:200-400cm:1000kg-dry:v1:chemfield:hasClosureStatus:not_closed_no_lab_assay_attached",
+   "rel": "chemfield:hasClosureStatus",
+   "from": "massbalance:nh-clay:haarlemmermeer:200-400cm:1000kg-dry:v1",
+   "to": "not_closed_no_lab_assay_attached"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasClayMassBalance:massbalance:nh-clay:haarlemmermeer:200-400cm:1000kg-dry:v1",
+   "rel": "chemfield:hasClayMassBalance",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "massbalance:nh-clay:haarlemmermeer:200-400cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:record:nh-clay:wieringermeer:0-50cm:v1:chemfield:hasMassBalance:massbalance:nh-clay:wieringermeer:0-50cm:1000kg-dry:v1",
+   "rel": "chemfield:hasMassBalance",
+   "from": "record:nh-clay:wieringermeer:0-50cm:v1",
+   "to": "massbalance:nh-clay:wieringermeer:0-50cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:wieringermeer:0-50cm:1000kg-dry:v1:chemfield:usesSource:source:bro-geotop-gtm",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:nh-clay:wieringermeer:0-50cm:1000kg-dry:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:wieringermeer:0-50cm:1000kg-dry:v1:chemfield:hasClosureStatus:not_closed_no_lab_assay_attached",
+   "rel": "chemfield:hasClosureStatus",
+   "from": "massbalance:nh-clay:wieringermeer:0-50cm:1000kg-dry:v1",
+   "to": "not_closed_no_lab_assay_attached"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasClayMassBalance:massbalance:nh-clay:wieringermeer:0-50cm:1000kg-dry:v1",
+   "rel": "chemfield:hasClayMassBalance",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "massbalance:nh-clay:wieringermeer:0-50cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:record:nh-clay:wieringermeer:200-500cm:v1:chemfield:hasMassBalance:massbalance:nh-clay:wieringermeer:200-500cm:1000kg-dry:v1",
+   "rel": "chemfield:hasMassBalance",
+   "from": "record:nh-clay:wieringermeer:200-500cm:v1",
+   "to": "massbalance:nh-clay:wieringermeer:200-500cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:wieringermeer:200-500cm:1000kg-dry:v1:chemfield:usesSource:source:bro-geotop-gtm",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:nh-clay:wieringermeer:200-500cm:1000kg-dry:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:wieringermeer:200-500cm:1000kg-dry:v1:chemfield:hasClosureStatus:not_closed_no_lab_assay_attached",
+   "rel": "chemfield:hasClosureStatus",
+   "from": "massbalance:nh-clay:wieringermeer:200-500cm:1000kg-dry:v1",
+   "to": "not_closed_no_lab_assay_attached"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasClayMassBalance:massbalance:nh-clay:wieringermeer:200-500cm:1000kg-dry:v1",
+   "rel": "chemfield:hasClayMassBalance",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "massbalance:nh-clay:wieringermeer:200-500cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:record:nh-clay:west-friesland-enkhuizen:0-50cm:v1:chemfield:hasMassBalance:massbalance:nh-clay:west-friesland-enkhuizen:0-50cm:1000kg-dry:v1",
+   "rel": "chemfield:hasMassBalance",
+   "from": "record:nh-clay:west-friesland-enkhuizen:0-50cm:v1",
+   "to": "massbalance:nh-clay:west-friesland-enkhuizen:0-50cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:west-friesland-enkhuizen:0-50cm:1000kg-dry:v1:chemfield:usesSource:source:bro-geotop-gtm",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:nh-clay:west-friesland-enkhuizen:0-50cm:1000kg-dry:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:west-friesland-enkhuizen:0-50cm:1000kg-dry:v1:chemfield:hasClosureStatus:not_closed_no_lab_assay_attached",
+   "rel": "chemfield:hasClosureStatus",
+   "from": "massbalance:nh-clay:west-friesland-enkhuizen:0-50cm:1000kg-dry:v1",
+   "to": "not_closed_no_lab_assay_attached"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasClayMassBalance:massbalance:nh-clay:west-friesland-enkhuizen:0-50cm:1000kg-dry:v1",
+   "rel": "chemfield:hasClayMassBalance",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "massbalance:nh-clay:west-friesland-enkhuizen:0-50cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:record:nh-clay:west-friesland-enkhuizen:150-350cm:v1:chemfield:hasMassBalance:massbalance:nh-clay:west-friesland-enkhuizen:150-350cm:1000kg-dry:v1",
+   "rel": "chemfield:hasMassBalance",
+   "from": "record:nh-clay:west-friesland-enkhuizen:150-350cm:v1",
+   "to": "massbalance:nh-clay:west-friesland-enkhuizen:150-350cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:west-friesland-enkhuizen:150-350cm:1000kg-dry:v1:chemfield:usesSource:source:bro-geotop-gtm",
+   "rel": "chemfield:usesSource",
+   "from": "massbalance:nh-clay:west-friesland-enkhuizen:150-350cm:1000kg-dry:v1",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:massbalance:nh-clay:west-friesland-enkhuizen:150-350cm:1000kg-dry:v1:chemfield:hasClosureStatus:not_closed_no_lab_assay_attached",
+   "rel": "chemfield:hasClosureStatus",
+   "from": "massbalance:nh-clay:west-friesland-enkhuizen:150-350cm:1000kg-dry:v1",
+   "to": "not_closed_no_lab_assay_attached"
+  },
+  {
+   "id": "fiber:comparison:bof-vs-noord-holland-clay:v1:chemfield:hasClayMassBalance:massbalance:nh-clay:west-friesland-enkhuizen:150-350cm:1000kg-dry:v1",
+   "rel": "chemfield:hasClayMassBalance",
+   "from": "comparison:bof-vs-noord-holland-clay:v1",
+   "to": "massbalance:nh-clay:west-friesland-enkhuizen:150-350cm:1000kg-dry:v1"
+  },
+  {
+   "id": "fiber:var:clay-mass-balance:dry-basis:chemfield:hasStatus:mass_balance_planning_basis_not_measured_chemistry",
+   "rel": "chemfield:hasStatus",
+   "from": "var:clay-mass-balance:dry-basis",
+   "to": "mass_balance_planning_basis_not_measured_chemistry"
+  },
+  {
+   "id": "fiber:var:clay-mass-balance:dry-basis:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "var:clay-mass-balance:dry-basis",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:var:clay-mass-balance:closure-required:chemfield:hasStatus:required_before_enrichment_claim",
+   "rel": "chemfield:hasStatus",
+   "from": "var:clay-mass-balance:closure-required",
+   "to": "required_before_enrichment_claim"
+  },
+  {
+   "id": "fiber:var:clay-mass-balance:closure-required:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "var:clay-mass-balance:closure-required",
+   "to": "source:bro-geotop-gtm"
+  },
+  {
+   "id": "fiber:var:enrichment-factor:locked:chemfield:hasStatus:locked_pending_measured_clay_composition",
+   "rel": "chemfield:hasStatus",
+   "from": "var:enrichment-factor:locked",
+   "to": "locked_pending_measured_clay_composition"
+  },
+  {
+   "id": "fiber:var:enrichment-factor:locked:chemfield:hasSource:source:bro-geotop-gtm",
+   "rel": "chemfield:hasSource",
+   "from": "var:enrichment-factor:locked",
+   "to": "source:bro-geotop-gtm"
+  }
+ ]
+}
