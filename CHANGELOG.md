@@ -1,5 +1,6 @@
 # Changelog
 
+- KW-004: hub-pagina §2.1 — hero, live fabric-strip (stats.json), teaser-badged field-grid, explorer-teaser client-search over knits.json, config-constant footerlinks. (#5)
 Elke merge één regel (feed-bron voor KW-010).
 
 - KW-007 · lib/score.ts: deterministische §A5 stem-aggregatie (LWW per (author,on), ts-tiebreak op id) + score/betwist; permutatie-invariant, 10k votes < 50 ms.

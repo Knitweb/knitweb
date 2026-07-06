@@ -1,13 +1,120 @@
-// hub.ts — progressive enhancement for the field-kit hub (bundled by esbuild).
-// Vanilla, dependency-free: a subtle lift on the hovered field card.
-const cards = document.querySelectorAll<HTMLElement>(".field-card");
-for (const card of cards) {
-  card.addEventListener("pointerenter", () => {
-    card.style.transform = "translateY(-2px)";
-    card.style.transition = "transform .15s";
-  });
-  card.addEventListener("pointerleave", () => {
-    card.style.transform = "";
+// Hub client (KW-004): fills the live fabric-strip from stats.json and powers the
+// explorer-teaser — a client-side search over each field's knits.json. Same-origin
+// only; every fetch degrades gracefully so the static hub works before ingest (KW-008)
+// has produced any knits. Also keeps the subtle field-card hover lift.
+
+type Field = { slug: string; name: string; accent: string };
+type Knit = {
+  claim?: string;
+  tags?: string[];
+  score?: number;
+  fibers?: number;
+  source?: string;
+  id?: string;
+};
+
+const $ = (id: string) => document.getElementById(id);
+const esc = (s: unknown) =>
+  String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]!));
+
+async function json<T>(url: string): Promise<T | null> {
+  try {
+    const r = await fetch(url, { credentials: "same-origin" });
+    return r.ok ? ((await r.json()) as T) : null;
+  } catch {
+    return null;
+  }
+}
+
+// --- fabric-strip ---------------------------------------------------------
+async function fillStrip() {
+  const s = await json<Record<string, number>>("/stats.json");
+  const set = (id: string, v: number | undefined) => {
+    const el = $(id);
+    if (el) el.textContent = (v ?? 0).toLocaleString("nl-NL");
+  };
+  set("s-knits", s?.knits);
+  set("s-fibers", s?.fibers);
+  set("s-peers", s?.peers);
+  set("s-weft", s?.weft);
+}
+
+// --- explorer-teaser: search over all fields' knits.json ------------------
+let INDEX: Array<Knit & { field: Field }> = [];
+let loaded = false;
+
+async function loadIndex(fields: Field[]) {
+  if (loaded) return;
+  loaded = true;
+  const per = await Promise.all(
+    fields.map(async (f) => {
+      const knits = (await json<Knit[]>(`/${f.slug}/knits.json`)) || [];
+      return knits.map((k) => ({ ...k, field: f }));
+    })
+  );
+  INDEX = per.flat();
+}
+
+function render(rows: Array<Knit & { field: Field }>, q: string) {
+  const box = $("results");
+  if (!box) return;
+  if (!q) {
+    box.innerHTML = `<p class="empty">Typ om te zoeken over alle fields.</p>`;
+    return;
+  }
+  if (!rows.length) {
+    box.innerHTML = `<p class="empty">Nog geen knits gevonden voor “${esc(q)}”.</p>`;
+    return;
+  }
+  box.innerHTML = rows
+    .slice(0, 40)
+    .map(
+      (k) => `<div class="knit" style="border-left:3px solid ${esc(k.field.accent)}">
+        <span class="claim">${esc(k.claim || "(geen claim)")}</span>
+        <span class="m">▲ ${k.score ?? 0}</span>
+        <span class="m">${k.fibers ?? 0} fiber</span>
+        <span class="m">${esc(k.source || "—")}</span>
+        <span class="m">${esc((k.id || "").slice(0, 10))}</span>
+      </div>`
+    )
+    .join("");
+}
+
+function search(q: string) {
+  const needle = q.trim().toLowerCase();
+  const rows = !needle
+    ? []
+    : INDEX.filter(
+        (k) =>
+          (k.claim || "").toLowerCase().includes(needle) ||
+          (k.tags || []).some((t) => t.toLowerCase().includes(needle))
+      );
+  render(rows, needle);
+}
+
+function hoverLift() {
+  for (const card of document.querySelectorAll<HTMLElement>(".field-card")) {
+    card.addEventListener("pointerenter", () => {
+      card.style.transform = "translateY(-2px)";
+      card.style.transition = "transform .15s";
+    });
+    card.addEventListener("pointerleave", () => {
+      card.style.transform = "";
+    });
+  }
+}
+
+function main() {
+  const fields: Field[] = (window as unknown as { __FIELDS__?: Field[] }).__FIELDS__ || [];
+  hoverLift();
+  fillStrip();
+  const input = $("q") as HTMLInputElement | null;
+  if (!input) return;
+  input.addEventListener("input", async () => {
+    await loadIndex(fields); // lazy: only fetch knits once the user searches
+    search(input.value);
   });
 }
+
+main();
 export {};
