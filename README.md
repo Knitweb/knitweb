@@ -8,4 +8,15 @@ Hub: [knitweb.art](https://knitweb.art) · Fields: chemfield (live), gangfield, 
 - Agents leveren uitsluitend PR's, nooit direct naar main. CI-groen is merge-voorwaarde.
 - Org-backlog live: [chemfield.github.io](https://chemfield.github.io)
 
+## Quickstart
+
+```sh
+npm install      # esbuild (enige dev-dep)
+npm run build    # fields/ + static/ → dist/
+npm test         # build-smoketests (node --test)
+```
+
+Voeg een field toe: kopieer een `fields/*.field.json` (verplicht: `slug,name,accent,tagline,status,order`).
+`dist/` werkt identiek vanaf elke host. Ongeldige config → build stopt met exit≠0 + leesbare fout.
+
 Onderdeel van het VirtualV/KnitWeb go-to-market-plan (hub-and-fields, 90-dagenplan wk 1–2).
