@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>knitweb · chem — de scheikundelabs</title>
+<meta name="description" content="Speel de chemie: de reactieve 3D-molecuullab met de staalslak→vanadium missiecampagne, en de analytische lab met XRF-handgun en ICP-OES.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%A7%AA%3C/text%3E%3C/svg%3E">
+<style>
+  :root{--bg:#0b0e14;--panel:#141a24;--line:#262d3a;--ink:#e6edf3;--dim:#8b95a5;--accent:#3fb6a8;--slag:#c98a3a;--teal:#7cf6c8}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1100px 640px at 72% -8%,#12212c 0%,var(--bg) 60%);color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;min-height:100vh}
+  header{display:flex;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--line)}
+  header .brand{font-weight:800;letter-spacing:.01em} header .dim{color:var(--dim);font-size:.9em}
+  header .grow{flex:1}
+  a.ghost{color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:.9em}
+  a.ghost:hover{color:var(--ink);border-color:var(--accent)}
+  main{max-width:1000px;margin:0 auto;padding:40px 22px 72px}
+  .hero h1{font-size:clamp(28px,4vw,44px);margin:0 0 8px;letter-spacing:-.02em}
+  .hero h1 .g{background:linear-gradient(135deg,var(--teal),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--dim);max-width:64ch;margin:0}
+  .grid{display:grid;gap:18px;grid-template-columns:1fr 1fr;margin-top:30px}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+  .card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s}
+  .card:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .card.slag{border-left:3px solid var(--slag)} .card.analyze{border-left:3px solid var(--teal)}
+  .card .ic{font-size:34px} .card h2{margin:12px 0 4px;font-size:22px}
+  .card p{color:var(--dim);margin:0;font-size:.95em;flex:1}
+  .card .tags{margin-top:14px;display:flex;gap:6px;flex-wrap:wrap}
+  .tag{font-size:.72em;font-family:ui-monospace,monospace;color:var(--dim);border:1px solid var(--line);border-radius:99px;padding:2px 8px}
+  .card .go{margin-top:16px;align-self:flex-start;background:linear-gradient(135deg,var(--teal),var(--accent));
+    color:#04231a;font-weight:700;border-radius:10px;padding:10px 16px;font-size:.95em}
+  .missions{margin-top:34px;border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:linear-gradient(160deg,#1c1710,#141c25)}
+  .missions h3{margin:0 0 10px;font-size:1.05em;color:var(--slag)}
+  .chain{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.9em;color:var(--dim)}
+  .chain b{color:var(--ink)} .chain .arw{color:var(--slag)}
+  .note{color:var(--dim);font-size:.85em;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
+  .note code{font-family:ui-monospace,monospace;color:var(--accent)}
+  footer{color:var(--dim);font-size:.85em;text-align:center;padding:22px}
+  footer a{color:var(--dim)}
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">🧪 knitweb</span><span class="dim">· chem</span>
+  <span class="grow"></span>
+  <a class="ghost" href="../">↩ field-kit hub</a>
+  <a class="ghost" href="../chemfield/">chemfield-field</a>
+</header>
+<main>
+  <section class="hero">
+    <h1>Speel de <span class="g">scheikunde</span>.</h1>
+    <p>Twee 3D-labs op het knitweb, verankerd in de échte staalslak→vanadium-chemie van ChemField/SmartSlag.
+       Bouw moleculen en loop de missiecampagne, of assay monsters met een handheld-XRF en ICP-OES.</p>
+  </section>
+
+  <div class="grid">
+    <a class="card slag" href="lab-3d.html">
+      <span class="ic">🧬</span>
+      <h2>Reactieve lab</h2>
+      <p>Bouw moleculen atoom-voor-atoom en weef ze in de fabric. Loop de <b>missiecampagne</b>:
+         slak → vanadium → leach → precipitatie — elke missie ontgrendelt de volgende.</p>
+      <div class="tags"><span class="tag">WebGL · VR</span><span class="tag">missies</span><span class="tag">PLS-rewards</span></div>
+      <span class="go">▶ Open de reactieve lab</span>
+    </a>
+    <a class="card analyze" href="lab-analyze.html">
+      <span class="ic">🔬</span>
+      <h2>Analytische lab</h2>
+      <p>Assay realistische monsters (BOF-slak, FeV80, RVS316, messing, bauxiet) met een
+         <b>handheld-XRF</b> en <b>ICP-OES</b> — emissiespectrum, trace-concentraties, en de echte
+         XRF-blindheid voor lichte elementen.</p>
+      <div class="tags"><span class="tag">WebGL · VR</span><span class="tag">XRF</span><span class="tag">ICP-OES</span></div>
+      <span class="go">▶ Open de analytische lab</span>
+    </a>
+  </div>
+
+  <div class="missions">
+    <h3>⚗️ De missiecampagne</h3>
+    <div class="chain">
+      <b>⛏ Steel Slag</b><span class="arw">→</span><b>🔬 Vanadium Recovery</b><span class="arw">→</span>
+      <b>🧪 Acid Leach</b><span class="arw">→</span><b>⚗️ Precipitate</b>
+    </div>
+    <p style="color:var(--dim);font-size:.9em;margin:10px 0 0">Spiegelt de ChemField/SmartSlag → VANELEX-route: refine de BOF-slak-oxidematrix, isoleer de V/Ti-dragende oxides, bouw de leaching-zuren, en precipiteer de teruggewonnen metalen.</p>
+  </div>
+
+  <p class="note">De labs draaien volledig in je browser (WebGL/WebXR). De analytische lab werkt volledig
+    offline; de missiecampagne in de reactieve lab weeft via een <code>molgang</code>-peer — start er een
+    met <code>molgang serve</code> of sluit aan op een live peer voor P2P-quorum.</p>
+</main>
+<footer>
+  knitweb · chem — onderdeel van het <a href="../">field-kit</a> hub-and-fields web ·
+  <a href="https://github.com/Knitweb/molgang">molgang</a>
+</footer>
+</body>
+</html>

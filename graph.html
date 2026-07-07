@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>knitweb — 3D-kennisgraaf</title>
+<meta name="description" content="Elk field als een levend 3D-kennisweb: knits zijn feiten, fibers zijn relaties. Draai, zoom, klik — en bekijk in VR.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%95%B8%3C/text%3E%3C/svg%3E">
+<style>
+  :root{--bg:#0b0e14;--panel:#141a24cc;--line:#262d3a;--ink:#e6edf3;--dim:#8b95a5;--accent:#3fb6a8}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
+  #graph{position:fixed;inset:0}
+  .bar{position:fixed;top:14px;left:14px;right:14px;z-index:10;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+    background:var(--panel);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:12px;padding:9px 12px}
+  .bar .t{font-weight:700;letter-spacing:.01em} .bar .t small{color:var(--dim);font-weight:400}
+  .bar .grow{flex:1}
+  select,a.btn,button.btn{background:#1b2430;border:1px solid var(--line);color:var(--ink);
+    border-radius:9px;padding:7px 11px;font:inherit;font-size:13px;cursor:pointer;text-decoration:none}
+  select:focus{outline:none;border-color:var(--accent)}
+  a.btn:hover,button.btn:hover{border-color:var(--accent)}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--dim);align-items:center}
+  .legend i{display:inline-block;width:9px;height:9px;border-radius:99px;margin-right:4px;vertical-align:middle}
+  #panel{position:fixed;right:14px;top:70px;width:290px;max-width:calc(100vw - 28px);z-index:10;
+    background:var(--panel);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:12px;padding:14px 15px;display:none}
+  #panel h3{margin:0 0 4px;font-size:16px} #panel .k{font-family:ui-monospace,monospace;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+  #panel p{margin:8px 0 0;font-size:13px;color:#cdd6e0;line-height:1.45;word-break:break-word}
+  #panel .chips{margin-top:8px;display:flex;gap:5px;flex-wrap:wrap}
+  #panel .chips span{font-size:11px;border:1px solid var(--line);border-radius:99px;padding:1px 7px;color:var(--dim)}
+  .empty{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);z-index:5;text-align:center;padding:20px}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div id="graph"></div>
+<div id="empty" class="empty" hidden></div>
+
+<div class="bar">
+  <span class="t">🕸 knitweb <small>· 3D-kennisgraaf</small></span>
+  <label class="legend" style="gap:6px">field
+    <select id="field" aria-label="Kies field"></select>
+  </label>
+  <span class="grow"></span>
+  <span class="legend" id="legend"></span>
+  <a class="btn" id="back" href="./">↩ hub</a>
+  <button class="btn" id="vr" hidden>🥽 VR</button>
+</div>
+
+<div id="panel" role="dialog" aria-label="knoop-details">
+  <div class="k" id="p-group"></div>
+  <h3 id="p-name"></h3>
+  <p id="p-desc"></p>
+  <div class="chips" id="p-chips"></div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { VRButton } from 'three/addons/webxr/VRButton.js';
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const qs = new URLSearchParams(location.search);
+
+// All fetches are RELATIVE to this file's directory, so the viewer is
+// base-path agnostic (works at / and under /knitweb/ alike).
+async function j(url){ const r = await fetch(url, {cache:'no-store'}); if(!r.ok) throw new Error(url+' '+r.status); return r.json(); }
+
+let Graph=null, fields=[], current=null;
+
+function showNode(n){
+  if(!n){ $('#panel').style.display='none'; return; }
+  $('#p-group').textContent = n.group || '';
+  $('#p-name').textContent = n.name || n.id;
+  $('#p-desc').textContent = n.desc || n.id;
+  const kw = (n.kw ? String(n.kw).split('|').filter(Boolean) : []);
+  $('#p-chips').innerHTML = kw.map(t=>`<span>${esc(t)}</span>`).join('');
+  $('#panel').style.display='block';
+}
+
+function renderLegend(nodes){
+  const seen = new Map();
+  for(const n of nodes){ if(!seen.has(n.group)) seen.set(n.group, n.color); }
+  $('#legend').innerHTML = [...seen].map(([g,c])=>`<span><i style="background:${esc(c)}"></i>${esc(g)}</span>`).join('');
+}
+
+async function load(slug){
+  current = slug;
+  history.replaceState(null,'', `?field=${encodeURIComponent(slug)}`);
+  $('#field').value = slug;
+  let data;
+  try { data = await j(`${slug}/graph.json`); }
+  catch(e){ data = {nodes:[],links:[]}; }
+  const empty = !data.nodes.length;
+  $('#empty').hidden = !empty;
+  if(empty){ $('#empty').innerHTML = `Nog geen geweven feiten in <b>${esc(slug)}</b> — dit field is een teaser.<br><a href="${esc(slug)}/">bekijk het field →</a>`; }
+  renderLegend(data.nodes);
+  if(!Graph){ await initGraph(); }
+  Graph.graphData(data);
+  setTimeout(()=>{ try{ Graph.zoomToFit(600,60); }catch(_){} }, 400);
+}
+
+function initGraph(){
+  return new Promise((resolve,reject)=>{
+    const s=document.createElement('script');
+    s.src='https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js';
+    s.onload=()=>{
+      if(typeof ForceGraph3D==='undefined'){ reject(new Error('ForceGraph3D')); return; }
+      Graph = ForceGraph3D()(document.getElementById('graph'))
+        .backgroundColor('#0b0e14')
+        .nodeLabel(n=>`${esc(n.name)}  ·  ${esc(n.group)}`)
+        .nodeColor(n=>n.color||'#c7d0dc')
+        .nodeVal(n=>n.val||5)
+        .nodeOpacity(0.95)
+        .linkColor(()=> 'rgba(120,135,160,.35)')
+        .linkLabel(l=>esc(l.rel||''))
+        .linkDirectionalArrowLength(3).linkDirectionalArrowRelPos(1)
+        .linkWidth(0.5)
+        .onNodeClick(n=>{ showNode(n);
+          const d=Math.hypot(n.x,n.y,n.z)||120; const r=1+90/d;
+          if(Graph.cameraPosition) Graph.cameraPosition({x:n.x*r,y:n.y*r,z:n.z*r}, n, 800); })
+        .onBackgroundClick(()=>showNode(null));
+      // WebXR: reuse three's renderer + VRButton.
+      try{
+        const r = Graph.renderer && Graph.renderer();
+        if(r && navigator.xr){ r.xr.enabled = true;
+          navigator.xr.isSessionSupported?.('immersive-vr').then(ok=>{
+            if(ok){ const b=$('#vr'); b.hidden=false; b.appendChild; document.body.appendChild(VRButton.createButton(r)); }
+          }).catch(()=>{}); }
+      }catch(_){}
+      addEventListener('resize',()=>Graph.width(innerWidth).height(innerHeight));
+      resolve();
+    };
+    s.onerror=()=>reject(new Error('CDN'));
+    document.head.appendChild(s);
+  });
+}
+
+async function main(){
+  try { fields = await j('graph-index.json'); }
+  catch(e){ $('#empty').hidden=false; $('#empty').textContent='Kon graph-index niet laden.'; return; }
+  $('#field').innerHTML = fields.map(f=>`<option value="${esc(f.slug)}">${esc(f.name)} · ${f.nodes} knopen</option>`).join('');
+  $('#field').addEventListener('change', e=>load(e.target.value));
+  const want = qs.get('field');
+  const start = fields.find(f=>f.slug===want) || fields.find(f=>f.nodes>0) || fields[0];
+  if(start) await load(start.slug);
+  else { $('#empty').hidden=false; $('#empty').textContent='Nog geen fields.'; }
+}
+main();
+</script>
+</body>
+</html>
