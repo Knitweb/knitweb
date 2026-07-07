@@ -1,2 +1,6 @@
 node_modules/
 dist/
+
+# curator private keys — offline only, never commit
+*.key
+.knitweb-curator/
