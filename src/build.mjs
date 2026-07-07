@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 import { validateField } from "./lib/validate.mjs";
 import { knitRecord } from "./lib/seedrec.mjs";
 import { serialize, verify } from "./lib/fabric.ts";
+import { feedFromChangelog } from "./lib/feed.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const FIELDS = join(ROOT, "fields");
@@ -154,6 +155,9 @@ ${shown.length ? cards : empty}
     <div class="results" id="results"><p class="empty">Typ om te zoeken over alle fields.</p></div>
   </div>
 
+  <h3 class="lbl">Devlog</h3>
+  <div class="results" id="devlog"><p class="empty">Laden…</p></div>
+
   <footer>${footer} · <span class="sub">knitweb field-kit</span></footer>
 </main>
 <script>window.__FIELDS__=${manifest};</script>
@@ -293,8 +297,12 @@ async function main() {
     await writeFile(join(DIST, f.slug, "index.html"), renderField(f, knits), "utf8");
     await writeFile(join(DIST, f.slug, "knits.json"), JSON.stringify(knits), "utf8");
   }
+  // Devlog-feed (KW-010): CHANGELOG.md → dist/feed.json voor de hub-strip.
+  const clPath = join(ROOT, "CHANGELOG.md");
+  const feed = existsSync(clPath) ? feedFromChangelog(await readFile(clPath, "utf8"), { limit: 20 }) : { version: 1, entries: [] };
+  await writeFile(join(DIST, "feed.json"), JSON.stringify(feed), "utf8");
   const signed = live.filter((f) => seeds[f.slug].signed).map((f) => f.slug);
-  console.log(`✓ build ok — ${fields.length} field(s), ${totKnits} knits + ${totFibers} fibers → dist/`);
+  console.log(`✓ build ok — ${fields.length} field(s), ${totKnits} knits + ${totFibers} fibers, ${feed.entries.length} devlog-entries → dist/`);
   console.log(signed.length ? `  ✓ signer-geverifieerd: ${signed.join(", ")}` : `  · geen ondertekende seeds (provisional)`);
 }
 
