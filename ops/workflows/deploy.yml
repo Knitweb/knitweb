@@ -1,0 +1,38 @@
+# Deploy (KW-009): alleen op main. Bouwt dist/ en rsync't over SSH naar de anchor +
+# Hetzner-mirror. Failure is NOOIT silent (geen `|| true`, geen continue-on-error).
+# Secrets (deploykeys/hosts) staan als repo-secrets — namen hier, waarden nooit zichtbaar.
+name: deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+concurrency:
+  group: deploy-main
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: ssh-agent (deploykey)
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+      - name: known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+      - name: rsync → anchor
+        run: rsync -az --delete dist/ "${{ secrets.ANCHOR_DEST }}"
+      - name: rsync → hetzner mirror
+        run: rsync -az --delete dist/ "${{ secrets.HETZNER_DEST }}"
