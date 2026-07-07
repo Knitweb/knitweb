@@ -7,3 +7,6 @@ dist/
 
 # vank-adapter output — ongecureerde concept-knits, niet committen
 seeds/_drafts/
+
+# render-output (regenereerbaar; voorbeeld-mp4 als PR-artifact)
+reports/*.mp4

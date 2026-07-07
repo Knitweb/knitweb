@@ -45,3 +45,9 @@ Of plak de twee bestanden via de GitHub-UI (`Add file → Create new file` →
 ## Pages-preview per PR
 Preview-deploys lopen via de bestaande Pages-flow (chemfield.github.io-patroon); een
 per-PR-preview is een vervolg-issue zodra Pages-secrets staan.
+
+## Mirrors, nachtrapport & devlog (KW-010)
+- **`ops/workflows/mirrors.yml`** — op elke main-merge: `git push --mirror` naar GitLab + anchor-git (secrets `GITLAB_REMOTE`, `ANCHOR_GIT_REMOTE`, `MIRROR_SSH_KEY`, `MIRROR_KNOWN_HOSTS`). **Radicle-fallback:** `rad` is in GitHub-CI meestal onhaalbaar (geen node/identity) → de rad-stap is `continue-on-error` en de echte Radicle-mirror loopt via **anchor-cron** (`rad push` op de anchor, die de main-branch trackt).
+- **`tools/nightly-report.mjs`** — `node tools/nightly-report.mjs [YYYY-MM-DD]` → `reports/Nachtploeg-rapport-<datum>.md` **uitsluitend uit git-feiten** (commits, diffstat, issue-refs); geen model-samenvatting.
+- **`feed.json`** — de build genereert `dist/feed.json` uit `CHANGELOG.md`; de hub toont hem als Devlog-strip.
+- **`reports/render.sh [out.mp4]`** — ffmpeg-diff-slideshow van ≥1 nachtrapport → 60–90 s mp4 voor de shorts-pipeline. **Geen auto-upload** (bewust handmatig).

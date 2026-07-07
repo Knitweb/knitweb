@@ -92,6 +92,28 @@ function search(q: string) {
   render(rows, needle);
 }
 
+// --- devlog strip: recent CHANGELOG entries from feed.json -----------------
+type Feed = { version: number; entries: Array<{ text: string; refs: number[] }> };
+async function fillDevlog() {
+  const box = $("devlog");
+  if (!box) return;
+  const feed = await json<Feed>("/feed.json");
+  const rows = feed?.entries ?? [];
+  if (!rows.length) {
+    box.innerHTML = `<p class="empty">Nog geen devlog-entries.</p>`;
+    return;
+  }
+  box.innerHTML = rows
+    .slice(0, 6)
+    .map((e) => {
+      const refs = (e.refs || [])
+        .map((n) => `<a class="m" href="https://github.com/Knitweb/knitweb/issues/${n}">#${n}</a>`)
+        .join(" ");
+      return `<div class="knit"><span class="claim">${esc(e.text)}</span>${refs ? `<span class="m">${refs}</span>` : ""}</div>`;
+    })
+    .join("");
+}
+
 function hoverLift() {
   for (const card of document.querySelectorAll<HTMLElement>(".field-card")) {
     card.addEventListener("pointerenter", () => {
@@ -108,6 +130,7 @@ function main() {
   const fields: Field[] = (window as unknown as { __FIELDS__?: Field[] }).__FIELDS__ || [];
   hoverLift();
   fillStrip();
+  fillDevlog();
   const input = $("q") as HTMLInputElement | null;
   if (!input) return;
   input.addEventListener("input", async () => {

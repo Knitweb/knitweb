@@ -1,0 +1,43 @@
+# Mirrors (KW-010): elke main-merge spiegelt naar GitLab, Radicle en de anchor-git.
+# Onder ops/workflows/ tot de workflow-scope er is (zie docs/ops.md). Alleen actions/*
+# + git/rad-CLI. Geen credentials in de repo — remotes/keys komen uit secrets.
+name: mirrors
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mirrors-main
+  cancel-in-progress: false
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.MIRROR_SSH_KEY }}
+      - name: known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.MIRROR_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+      - name: mirror → GitLab
+        run: git push --mirror "${{ secrets.GITLAB_REMOTE }}"
+      - name: mirror → anchor-git
+        run: git push --mirror "${{ secrets.ANCHOR_GIT_REMOTE }}"
+      # Radicle: `rad` in GitHub-CI is doorgaans onhaalbaar (geen node/identity).
+      # Fallback = anchor-cron (zie docs/ops.md). Deze stap is best-effort en faalt
+      # niet de mirror-run als rad ontbreekt.
+      - name: mirror → Radicle (best-effort)
+        continue-on-error: true
+        run: |
+          if command -v rad >/dev/null 2>&1; then
+            rad push || echo "rad push faalde — anchor-cron neemt over"
+          else
+            echo "rad niet beschikbaar in CI — Radicle-mirror loopt via anchor-cron (docs/ops.md)"
+          fi
