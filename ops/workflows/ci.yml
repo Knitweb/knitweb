@@ -1,0 +1,27 @@
+# CI (KW-009): elke PR + push draait test → lint → license-check → build.
+# Alleen actions/* — geen third-party actions in de CI-lane.
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: test (golden vectors + build/ingest)
+        run: npm test
+      - name: lint (eslint minimal)
+        run: npm run lint
+      - name: license-check (prod-deps whitelist)
+        run: npm run license-check
+      - name: build
+        run: npm run build

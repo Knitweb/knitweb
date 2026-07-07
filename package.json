@@ -9,10 +9,14 @@
   },
   "scripts": {
     "build": "node src/build.mjs",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "lint": "eslint \"src/**/*.mjs\" \"tools/**/*.mjs\" \"tests/**/*.mjs\"",
+    "license-check": "node tools/license-check.mjs"
   },
   "devDependencies": {
-    "esbuild": "^0.23.1"
+    "@eslint/js": "^9.39.4",
+    "esbuild": "^0.23.1",
+    "eslint": "^9.39.4"
   },
   "dependencies": {
     "@noble/curves": "^1.9.7",

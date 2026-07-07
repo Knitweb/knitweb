@@ -1,5 +1,7 @@
 # knitweb — field-kit monorepo
 
+[![ci](https://github.com/Knitweb/knitweb/actions/workflows/ci.yml/badge.svg)](https://github.com/Knitweb/knitweb/actions/workflows/ci.yml)
+
 **Eén codebase, N niche-portalen.** Een field is een configbestand, geen website.
 Hub: [knitweb.art](https://knitweb.art) · Fields: chemfield (live), gangfield, ledgerfield (teaser), modelfield/energyfield/codefield (coming soon).
 
