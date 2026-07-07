@@ -32,6 +32,56 @@ function esc(s) {
     .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+// --- 3D-graph data (like chem-web): knits + fibers → {nodes, links} ----------
+// The fabric IS a graph — the field page's "graafviz komt later" placeholder.
+// Nodes are the distinct entities (records/materials/sources/vars/…) plus the
+// knits (facts); links are the fibers (typed relations) plus each knit→its
+// record. Grouping/colour by id-prefix so a viewer can read the structure. Pure
+// data, integer/string only — no graph lib in the build.
+const NODE_KINDS = {
+  knit: { group: "feit", color: "#39e0b2", val: 5 },
+  record: { group: "record", color: "#79d7ff", val: 8 },
+  material: { group: "materiaal", color: "#ffe08a", val: 10 },
+  source: { group: "bron", color: "#b07fd0", val: 7 },
+  var: { group: "variabele", color: "#8b95a5", val: 4 },
+  massbalance: { group: "massabalans", color: "#4ec98f", val: 7 },
+  comparison: { group: "vergelijking", color: "#ff9a9a", val: 6 },
+  alias: { group: "alias", color: "#6ea8fe", val: 4 },
+};
+function nodeKind(id) {
+  const s = String(id);
+  // A bare token with no ":" is a status/verdict value (e.g. operator_parameter).
+  if (!s.includes(":")) return { group: "status", color: "#c7d0dc", val: 3 };
+  return NODE_KINDS[s.split(":")[0]] || { group: "entiteit", color: "#c7d0dc", val: 5 };
+}
+function nodeName(id, claim) {
+  if (claim) return claim.length > 46 ? claim.slice(0, 44) + "…" : claim;
+  // last meaningful, human-ish segment of the id
+  const parts = String(id).split(":").filter(Boolean);
+  return (parts[parts.length - 1] || id).replace(/[-_]/g, " ");
+}
+function fieldGraph(knits, fibers) {
+  const nodes = new Map();
+  const add = (id, extra = {}) => {
+    if (!id) return;
+    if (!nodes.has(id)) nodes.set(id, { id, name: nodeName(id), ...nodeKind(id) });
+    if (extra.name) nodes.get(id).name = extra.name;
+    if (extra.kw) nodes.get(id).kw = extra.kw;
+    if (extra.desc) nodes.get(id).desc = extra.desc;
+  };
+  const links = [];
+  for (const f of fibers || []) {
+    add(f.from); add(f.to);
+    links.push({ source: f.from, target: f.to, rel: String(f.rel || "").split(":").pop() || "rel" });
+  }
+  for (const k of knits || []) {
+    add(k.id, { name: nodeName(k.id, k.claim), kw: (k.tags || []).join("|"), desc: k.claim });
+    nodes.get(k.id).group = "feit"; nodes.get(k.id).color = "#39e0b2";
+    if (k.record) { add(k.record); links.push({ source: k.id, target: k.record, rel: "over" }); }
+  }
+  return { nodes: [...nodes.values()], links };
+}
+
 async function loadFields() {
   if (!existsSync(FIELDS)) return [];
   const schema = JSON.parse(await readFile(SCHEMA_PATH, "utf8"));
@@ -133,6 +183,9 @@ function renderHub(fields) {
   .badge{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim,#8b95a5)}
   h2{margin:6px 0 4px;font-size:16px} .field-card p{margin:0;color:var(--dim,#8b95a5);font-size:13px}
   .empty{color:var(--dim,#8b95a5)}
+  .graph-cta{margin:2px 0 14px;padding:12px 16px;border:1px solid var(--line,#262d3a);border-radius:10px;
+    background:linear-gradient(180deg,rgba(63,182,168,.08),transparent);color:var(--dim,#8b95a5);font-size:14px}
+  .graph-cta b{color:var(--ink,#e6edf3)} .graph-cta a{color:var(--accent,#3fb6a8);font-weight:600;white-space:nowrap}
   .search{margin-top:10px} .search input{width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;
     border:1px solid var(--line,#262d3a);background:var(--panel,#141a24);color:var(--ink,#e6edf3);font-size:14px}
   .results{margin-top:10px;display:flex;flex-direction:column;gap:6px}
@@ -159,6 +212,8 @@ ${shown.length ? cards : empty}
   </div>
 
   <h3 class="lbl">Verken de fabric</h3>
+  <p class="graph-cta">Elk field is een levend <b>3D-kennisweb</b> — knits zijn feiten, fibers zijn relaties.
+    <a href="${BASE}/graph.html">🕸 Open de 3D-graaf</a> (draaibaar · zoombaar · VR).</p>
   <div class="search">
     <input id="q" type="search" placeholder="zoek een knit — claim of tag…" autocomplete="off" />
     <div class="results" id="results"><p class="empty">Typ om te zoeken over alle fields.</p></div>
@@ -227,8 +282,11 @@ function renderField(f, knits) {
         <button data-sort="betwist">betwist</button>
       </div>
       <div id="knits"><p class="empty">Nog geen knits — dien de eerste in →</p></div>
-      <p class="lbl" style="margin-top:26px">Fiber-kaart</p>
-      <div class="panel"><div id="fibers" class="dim">Geen fibers. (graafviz komt later; hier de adjacency-lijst.)</div></div>
+      <p class="lbl" style="margin-top:26px">Fiber-kaart · de fabric als graaf</p>
+      <div class="panel">
+        <p class="dim" style="margin:0 0 10px">De knits (feiten) en fibers (relaties) van dit field als een levend 3D-kennisweb — draaibaar, zoombaar, en in VR.</p>
+        <a class="btn" href="${BASE}/graph.html?field=${esc(f.slug)}" style="display:inline-block;text-decoration:none">🕸 Open 3D-graaf</a>
+      </div>
     </section>
     <aside>
       <p class="lbl">Knit indienen</p>
@@ -299,13 +357,21 @@ async function main() {
     JSON.stringify({ knits: totKnits, fibers: totFibers, peers: 0, weft: 0, fields: fields.length }),
     "utf8"
   );
-  // Per-field pages (§2.2) + a knits.json search index, populated from the seeds.
+  // Per-field pages (§2.2) + a knits.json search index + a graph.json (nodes/
+  // links) for the 3D-graph view, populated from the seeds.
+  const graphIndex = [];
   for (const f of live) {
-    const knits = seeds[f.slug].knits;
+    const { knits, fibers } = seeds[f.slug];
     await mkdir(join(DIST, f.slug), { recursive: true });
     await writeFile(join(DIST, f.slug, "index.html"), renderField(f, knits), "utf8");
     await writeFile(join(DIST, f.slug, "knits.json"), JSON.stringify(knits), "utf8");
+    const graph = fieldGraph(knits, fibers);
+    await writeFile(join(DIST, f.slug, "graph.json"), JSON.stringify(graph), "utf8");
+    graphIndex.push({ slug: f.slug, name: f.name, accent: f.accent,
+      nodes: graph.nodes.length, links: graph.links.length });
   }
+  // Field manifest for the shared 3D-graph viewer (static/graph.html).
+  await writeFile(join(DIST, "graph-index.json"), JSON.stringify(graphIndex), "utf8");
   // Devlog-feed (KW-010): CHANGELOG.md → dist/feed.json voor de hub-strip.
   const clPath = join(ROOT, "CHANGELOG.md");
   const feed = existsSync(clPath) ? feedFromChangelog(await readFile(clPath, "utf8"), { limit: 20 }) : { version: 1, entries: [] };
