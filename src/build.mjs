@@ -18,6 +18,12 @@ const CLIENT = join(ROOT, "src", "client");
 // Output dir: default dist/, override met KNITWEB_DIST (bv. voor geïsoleerde test-builds).
 const DIST = process.env.KNITWEB_DIST ? resolve(process.env.KNITWEB_DIST) : join(ROOT, "dist");
 const SCHEMA_PATH = join(ROOT, "field.schema.json");
+// Base-path prefix voor alle absolute asset-/pagina-URLs. Leeg (root) by default;
+// zet KNITWEB_BASE=knitweb om onder een project-subpad te deployen (bv.
+// knitweb.github.io/knitweb/) zonder dode links. Genormaliseerd naar "/<pad>" of "".
+const BASE = process.env.KNITWEB_BASE
+  ? "/" + process.env.KNITWEB_BASE.replace(/^\/+|\/+$/g, "")
+  : "";
 
 class BuildError extends Error {}
 
@@ -90,7 +96,7 @@ function renderHub(fields) {
   const shown = fields.filter((f) => f.status !== "hidden");
   const cards = shown
     .map(
-      (f) => `      <a class="field-card ${esc(f.status)}" href="/${esc(f.slug)}/" style="--accent:${esc(f.accent)}">
+      (f) => `      <a class="field-card ${esc(f.status)}" href="${BASE}/${esc(f.slug)}/" style="--accent:${esc(f.accent)}">
         <span class="badge">${esc(f.status)}</span>
         <h2>${esc(f.name)}</h2>
         <p>${esc(f.tagline)}</p>
@@ -107,7 +113,7 @@ function renderHub(fields) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>knitweb — het geweven web van gestemde feiten</title>
-<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="${BASE}/tokens.css">
 <style>
   body{margin:0;font-family:var(--font,system-ui,sans-serif);background:var(--bg,#0b0e14);color:var(--ink,#e6edf3);line-height:1.5}
   main{max-width:960px;margin:0 auto;padding:44px 20px 80px}
@@ -160,8 +166,8 @@ ${shown.length ? cards : empty}
 
   <footer>${footer} · <span class="sub">knitweb field-kit</span></footer>
 </main>
-<script>window.__FIELDS__=${manifest};</script>
-<script type="module" src="/hub.js"></script>
+<script>window.__BASE__=${JSON.stringify(BASE)};window.__FIELDS__=${manifest};</script>
+<script type="module" src="${BASE}/hub.js"></script>
 </body>
 </html>
 `;
@@ -181,7 +187,7 @@ function renderField(f, knits) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(f.name)} — knitweb</title>
-<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="${BASE}/tokens.css">
 <style>
   body{margin:0;font-family:var(--font,system-ui,sans-serif);background:var(--bg,#0b0e14);color:var(--ink,#e6edf3);line-height:1.5}
   main{max-width:960px;margin:0 auto;padding:34px 20px 80px}
@@ -208,7 +214,7 @@ function renderField(f, knits) {
 <body>
 <main>
   <header class="f"><h1>${esc(f.name)}</h1><span class="dim">${esc(f.tagline)}</span>
-    <span class="dim" style="margin-left:auto"><a href="/">↩ hub</a></span></header>
+    <span class="dim" style="margin-left:auto"><a href="${BASE}/">↩ hub</a></span></header>
   <div class="cols">
     <section>
       <p class="lbl">Top knits</p>
@@ -236,8 +242,8 @@ function renderField(f, knits) {
     </aside>
   </div>
 </main>
-<script>window.__FIELD__=${inline};window.__KNITS__=${JSON.stringify(knits)};</script>
-<script type="module" src="/field.js"></script>
+<script>window.__BASE__=${JSON.stringify(BASE)};window.__FIELD__=${inline};window.__KNITS__=${JSON.stringify(knits)};</script>
+<script type="module" src="${BASE}/field.js"></script>
 </body>
 </html>
 `;
