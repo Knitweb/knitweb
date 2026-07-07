@@ -40,3 +40,38 @@ test("build fails hard (exit != 0) on an invalid field.json", () => {
   runBuild();
   assert.ok(existsSync(join(DIST, "index.html")));
 });
+
+test("KNITWEB_BASE prefixes every absolute asset/page path (subpath deploy)", () => {
+  const OUT = join(ROOT, ".tmp-base-dist");
+  try {
+    execFileSync("node", [BUILD], {
+      cwd: ROOT, encoding: "utf8",
+      env: { ...process.env, KNITWEB_BASE: "knitweb", KNITWEB_DIST: OUT },
+    });
+    const hub = readFileSync(join(OUT, "index.html"), "utf8");
+    // base injected for the client, and every root-absolute href/src is prefixed
+    assert.match(hub, /window\.__BASE__="\/knitweb"/, "hub moet __BASE__ injecteren");
+    const abs = [...hub.matchAll(/(?:href|src)="(\/[^"]*)"/g)].map((m) => m[1])
+      .filter((u) => !u.startsWith("//")); // ignore protocol-relative (none expected)
+    assert.ok(abs.length > 0, "hub heeft absolute paden");
+    for (const u of abs) {
+      assert.ok(u.startsWith("/knitweb/"), `absoluut pad ${u} moet met /knitweb/ beginnen (dode link onder subpad)`);
+    }
+    // field page too
+    const field = readFileSync(join(OUT, "chemfield", "index.html"), "utf8");
+    for (const u of [...field.matchAll(/(?:href|src)="(\/[^"]*)"/g)].map((m) => m[1])) {
+      assert.ok(u.startsWith("/knitweb/"), `field-pad ${u} moet met /knitweb/ beginnen`);
+    }
+    // client bundle reads the injected global
+    assert.match(readFileSync(join(OUT, "hub.js"), "utf8"), /__BASE__/);
+  } finally {
+    rmSync(OUT, { recursive: true, force: true });
+  }
+});
+
+test("default build (no KNITWEB_BASE) stays root-absolute — unchanged", () => {
+  runBuild();
+  const hub = readFileSync(join(DIST, "index.html"), "utf8");
+  assert.match(hub, /window\.__BASE__=""/, "root-deploy: __BASE__ leeg");
+  assert.match(hub, /href="\/tokens\.css"/, "root-deploy: tokens.css blijft /-absoluut");
+});

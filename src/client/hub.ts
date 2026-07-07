@@ -17,9 +17,13 @@ const $ = (id: string) => document.getElementById(id);
 const esc = (s: unknown) =>
   String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]!));
 
+// Base-path prefix (KNITWEB_BASE at build time) so the hub works under a project
+// subpath (e.g. knitweb.github.io/knitweb/) as well as at a domain root. "" = root.
+const BASE: string = (window as unknown as { __BASE__?: string }).__BASE__ || "";
+
 async function json<T>(url: string): Promise<T | null> {
   try {
-    const r = await fetch(url, { credentials: "same-origin" });
+    const r = await fetch(BASE + url, { credentials: "same-origin" });
     return r.ok ? ((await r.json()) as T) : null;
   } catch {
     return null;
