@@ -86,3 +86,24 @@ test("hub has no dead placeholder links (no href=\"#\")", () => {
     assert.ok(/^https?:\/\//.test(href) || href.startsWith("/"), `footer-link ${href} moet absoluut zijn`);
   }
 });
+
+test("build emits per-field 3D-graph data + a shared viewer (no dangling links)", () => {
+  runBuild();
+  // shared viewer + field manifest
+  assert.ok(existsSync(join(DIST, "graph.html")), "graph.html (viewer) moet bestaan");
+  const idx = JSON.parse(readFileSync(join(DIST, "graph-index.json"), "utf8"));
+  assert.ok(Array.isArray(idx) && idx.length >= 1, "graph-index moet fields bevatten");
+  // the live field has a non-empty, self-consistent graph
+  const chem = idx.find((f) => f.slug === "chemfield");
+  assert.ok(chem && chem.nodes > 0 && chem.links > 0, "chemfield graph moet knopen+links hebben");
+  const g = JSON.parse(readFileSync(join(DIST, "chemfield", "graph.json"), "utf8"));
+  const ids = new Set(g.nodes.map((n) => n.id));
+  for (const l of g.links) {
+    assert.ok(ids.has(l.source) && ids.has(l.target), `dangling link ${l.source}->${l.target}`);
+  }
+  // every node carries a colour + group (renderable)
+  for (const n of g.nodes) { assert.ok(n.color && n.group && n.name, `node ${n.id} mist color/group/name`); }
+  // counts in the index match the emitted graph
+  assert.equal(chem.nodes, g.nodes.length);
+  assert.equal(chem.links, g.links.length);
+});
