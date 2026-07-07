@@ -1,5 +1,6 @@
 # Changelog
 
+- KW-008 acc.2: `vank-report`-adapter — `tools/vank-adapter.mjs` parseert `vank.report.v1` (producer/grant/events) → ongetekende concept-knits in `seeds/_drafts/`, elk met source `vank:<event-id>` en `CURATIE-VEREIST`. Corrupt/ongeldig report → nette fout. Geen auto-signeren, geen auto-ingest. Sluit #8.
 - KW-008 acc.1: getekende seeds — offline curator-keypair (secp256k1) tekent elke knit; `build` verifieert fabric-sig tegen de gedeclareerde `signer` en faalt hard bij manipulatie/ontbrekende sig. Private key blijft lokaal (`~/.knitweb-curator/`, chmod 600, gitignored); alleen de pubkey staat in de seed. Tools: `curator-key.mjs`, `sign-seed.mjs`. chemfield-seed ondertekend (author b43a0712…). (#8)
 - KW-008: ingest v1 — build leest seeds/<slug>.knits.json → per-field knits.json + echte fabric-strip-tellingen (stats.json). chemfield-seed: 21 gesourcede knits + 108 fibers (uit ChemField/openchem, geen verzinsels). Signed .f1 + vank-adapter = follow-up. (#8)
 - KW-005: field-pagina §2.2 — top-knits + sort (score/nieuw/betwist §A5), fiber-placeholder, knit-indienen-form met canonieke knit/1-preview + keccak-digest en lokale secp256k1-signing (IndexedDB) → .f1-download; XSS-veilig, werkt met 0 knits. (#7)

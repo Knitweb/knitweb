@@ -1,0 +1,10 @@
+{
+  "format": "vank.report.v1",
+  "producer": "EXAMPLE-LAB",
+  "grant": "WBSO-EXAMPLE",
+  "events": [
+    { "id": "evt-0001", "measurement": { "quantity": "voorbeeld-grootheid", "value": 12.3, "unit": "eenheid", "method": "voorbeeld-methode" }, "mint": 5 },
+    { "id": "evt-0002", "measurement": { "quantity": "voorbeeld-grootheid-2", "value": 4.5, "unit": "eenheid" }, "mint": 2 },
+    { "id": "evt-0003", "mint": 1 }
+  ]
+}
