@@ -81,11 +81,14 @@ async function bundleClient() {
 }
 
 // Footer links are config constants (not hardcoded in markup scattering) — KW-004 (5).
+// Footer destinations — every one must resolve (no dead ends on the live hub).
+// Decentralised forge mirrors (Radicle/GitLab) run from CI secrets and have no
+// public landing to link yet, so they stay out of the footer until they do.
 const HUB_LINKS = [
   ["GitHub", "https://github.com/Knitweb"],
-  ["Radicle", "#"],
-  ["GitLab", "#"],
-  ["Discord", "#"],
+  ["Whitepaper", "https://knitweb.github.io"],
+  ["Spec v0.1", "https://github.com/Knitweb/knitweb/blob/main/docs/SPEC-v0.1.md"],
+  ["Live node · 5mart.ml", "https://5mart.ml"],
 ];
 
 // The hub (wireframe §2.1): hero + live fabric-strip (stats.json) + field-grid

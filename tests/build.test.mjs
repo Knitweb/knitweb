@@ -75,3 +75,14 @@ test("default build (no KNITWEB_BASE) stays root-absolute — unchanged", () => 
   assert.match(hub, /window\.__BASE__=""/, "root-deploy: __BASE__ leeg");
   assert.match(hub, /href="\/tokens\.css"/, "root-deploy: tokens.css blijft /-absoluut");
 });
+
+test("hub has no dead placeholder links (no href=\"#\")", () => {
+  runBuild();
+  const hub = readFileSync(join(DIST, "index.html"), "utf8");
+  assert.ok(!/href="#"/.test(hub), "de live hub mag geen dode #-placeholder-links bevatten");
+  // and every footer link is an absolute http(s) URL or a BASE-prefixed path
+  for (const href of [...hub.matchAll(/<footer[\s\S]*?<\/footer>/g)]
+      .flatMap((f) => [...f[0].matchAll(/href="([^"]+)"/g)].map((m) => m[1]))) {
+    assert.ok(/^https?:\/\//.test(href) || href.startsWith("/"), `footer-link ${href} moet absoluut zijn`);
+  }
+});
