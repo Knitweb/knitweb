@@ -4,3 +4,6 @@ dist/
 # curator private keys — offline only, never commit
 *.key
 .knitweb-curator/
+
+# vank-adapter output — ongecureerde concept-knits, niet committen
+seeds/_drafts/
