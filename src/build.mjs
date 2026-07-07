@@ -7,6 +7,8 @@ import { existsSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validateField } from "./lib/validate.mjs";
+import { knitRecord } from "./lib/seedrec.mjs";
+import { serialize, verify } from "./lib/fabric.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const FIELDS = join(ROOT, "fields");
@@ -250,13 +252,26 @@ async function main() {
   const live = fields.filter((x) => x.status !== "hidden");
   const seedOf = async (slug) => {
     const p = join(SEEDS, `${slug}.knits.json`);
-    if (!existsSync(p)) return { knits: [], fibers: [] };
+    if (!existsSync(p)) return { knits: [], fibers: [], signed: false };
+    let s;
     try {
-      const s = JSON.parse(await readFile(p, "utf8"));
-      return { knits: s.knits || [], fibers: s.fibers || [] };
+      s = JSON.parse(await readFile(p, "utf8"));
     } catch (e) {
       throw new BuildError(`seeds/${slug}.knits.json: ongeldige JSON — ${e.message}`);
     }
+    const knits = s.knits || [], fibers = s.fibers || [];
+    // KW-008 acc.1: if a curator signer is declared, every knit MUST carry a valid
+    // secp256k1 signature (fabric §A4) bound to that signer — else the build fails.
+    // No signer → "provisional" seeds (allowed, logged), pending real contributions.
+    if (s.signer) {
+      for (const k of knits) {
+        if (!k.sig || !k.rid) throw new BuildError(`seeds/${slug}.knits.json: knit "${k.id}" mist handtekening (signer gedeclareerd)`);
+        const rec = knitRecord(k, { field: s.field, signerPub: s.signer, ts: s.ts });
+        rec.sig = k.sig; rec.id = k.rid;
+        if (!verify(serialize(rec), s.signer)) throw new BuildError(`seeds/${slug}.knits.json: ongeldige handtekening op knit "${k.id}"`);
+      }
+    }
+    return { knits, fibers, signed: !!s.signer, signer: s.signer };
   };
   const seeds = {};
   let totKnits = 0, totFibers = 0;
@@ -278,7 +293,9 @@ async function main() {
     await writeFile(join(DIST, f.slug, "index.html"), renderField(f, knits), "utf8");
     await writeFile(join(DIST, f.slug, "knits.json"), JSON.stringify(knits), "utf8");
   }
+  const signed = live.filter((f) => seeds[f.slug].signed).map((f) => f.slug);
   console.log(`✓ build ok — ${fields.length} field(s), ${totKnits} knits + ${totFibers} fibers → dist/`);
+  console.log(signed.length ? `  ✓ signer-geverifieerd: ${signed.join(", ")}` : `  · geen ondertekende seeds (provisional)`);
 }
 
 main().catch((e) => {
