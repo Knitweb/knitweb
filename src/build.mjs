@@ -211,6 +211,10 @@ function renderHub(fields) {
 ${shown.length ? cards : empty}
   </div>
 
+  <h3 class="lbl">Speel</h3>
+  <p class="graph-cta">🧪 <b>De scheikundelabs</b> — bouw moleculen, loop de slag→vanadium missiecampagne, en assay monsters met XRF + ICP-OES.
+    <a href="${BASE}/chem/">Open de labs →</a> (WebGL · VR · offline).</p>
+
   <h3 class="lbl">Verken de fabric</h3>
   <p class="graph-cta">Elk field is een levend <b>3D-kennisweb</b> — knits zijn feiten, fibers zijn relaties.
     <a href="${BASE}/graph.html">🕸 Open de 3D-graaf</a> (draaibaar · zoombaar · VR).</p>
