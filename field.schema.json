@@ -11,6 +11,7 @@
     "tagline":  { "type": "string", "maxLength": 120 },
     "status":   { "enum": ["live", "teaser", "hidden"] },
     "order":    { "type": "integer", "minimum": 0 },
+    "url":      { "type": "string", "description": "Optional external URL for fields hosted separately (e.g., chemfield.github.io)" },
     "taxonomy": { "type": "array", "items": { "type": "string" }, "maxItems": 32 },
     "seed":     { "type": "string", "description": "pad naar *.seed.f1" },
     "ingest":   { "type": "array", "items": {

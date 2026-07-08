@@ -5,6 +5,7 @@
   "tagline": "Getekende scheikunde-feiten uit slak, klei en leach — peer-gevalideerd.",
   "status": "live",
   "order": 0,
+  "url": "https://chemfield.github.io/",
   "taxonomy": ["leaching", "vanadium", "clay", "slag"],
   "links": { "repo": "https://github.com/ChemField/openchem" }
 }

@@ -149,11 +149,15 @@ function renderHub(fields) {
   const shown = fields.filter((f) => f.status !== "hidden");
   const cards = shown
     .map(
-      (f) => `      <a class="field-card ${esc(f.status)}" href="${BASE}/${esc(f.slug)}/" style="--accent:${esc(f.accent)}">
+      (f) => {
+        // Support external field URLs (e.g., chemfield.github.io hosted separately)
+        const href = f.url || `${BASE}/${esc(f.slug)}/`;
+        return `      <a class="field-card ${esc(f.status)}" href="${esc(href)}" style="--accent:${esc(f.accent)}">
         <span class="badge">${esc(f.status)}</span>
         <h2>${esc(f.name)}</h2>
         <p>${esc(f.tagline)}</p>
-      </a>`
+      </a>`;
+      }
     )
     .join("\n");
   const empty = `      <p class="empty">Nog geen fields geconfigureerd. Voeg een <code>*.field.json</code> toe in <code>fields/</code>.</p>`;
