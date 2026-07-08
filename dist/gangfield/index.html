@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gangfield — knitweb</title>
+<link rel="stylesheet" href="/tokens.css">
+<style>
+  body{margin:0;font-family:var(--font,system-ui,sans-serif);background:var(--bg,#0b0e14);color:var(--ink,#e6edf3);line-height:1.5}
+  main{max-width:960px;margin:0 auto;padding:34px 20px 80px}
+  a{color:var(--accent,#3fb6a8);text-decoration:none}
+  header.f{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line,#262d3a);padding:0 0 12px 12px;margin-bottom:22px;border-left:3px solid #f4b41a}
+  header.f h1{font-size:22px;margin:0} .dim{color:var(--dim,#8b95a5)} .mono{font-family:var(--mono,ui-monospace,monospace)}
+  .cols{display:grid;grid-template-columns:1.3fr 1fr;gap:22px} @media(max-width:760px){.cols{grid-template-columns:1fr}}
+  .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--dim,#8b95a5);margin:0 0 10px}
+  .sorts{display:flex;gap:6px;margin-bottom:10px} .sorts button{font-size:12px;padding:5px 10px;border-radius:8px;border:1px solid var(--line,#262d3a);background:transparent;color:var(--dim,#8b95a5);cursor:pointer}
+  .sorts button.on{border-color:var(--accent,#3fb6a8);color:var(--ink,#e6edf3)}
+  .knit{padding:11px 13px;border:1px solid var(--line,#262d3a);border-radius:10px;margin-bottom:8px;cursor:pointer;border-left:3px solid #f4b41a}
+  .knit .claim{font-weight:600} .knit .meta{font-size:12px;color:var(--dim,#8b95a5);margin-top:3px;display:flex;gap:12px;flex-wrap:wrap}
+  .betwist{color:var(--warn,#e0a83a);border:1px solid var(--warn,#e0a83a);border-radius:20px;padding:0 7px;font-size:11px}
+  .panel{border:1px solid var(--line,#262d3a);border-radius:12px;padding:16px;background:var(--panel,#141a24)}
+  .panel h3{margin:0 0 8px;font-size:15px}
+  label{display:block;font-size:12px;color:var(--dim,#8b95a5);margin:10px 0 4px}
+  input,textarea,select{width:100%;box-sizing:border-box;padding:9px 11px;border-radius:9px;border:1px solid var(--line,#262d3a);background:var(--bg,#0b0e14);color:var(--ink,#e6edf3);font-size:13px;font-family:inherit}
+  textarea{min-height:60px;resize:vertical}
+  pre{background:var(--bg,#0b0e14);border:1px solid var(--line,#262d3a);border-radius:9px;padding:11px;overflow-x:auto;font-size:12px;white-space:pre-wrap;word-break:break-word}
+  .btn{margin-top:12px;padding:10px 14px;border-radius:9px;border:0;background:var(--accent,#3fb6a8);color:#04120f;font-weight:600;cursor:pointer;font-size:13px}
+  .btn:disabled{opacity:.5;cursor:not-allowed} .empty{color:var(--dim,#8b95a5)}
+</style>
+</head>
+<body>
+<main>
+  <header class="f"><h1>Gangfield</h1><span class="dim">Gestemde feiten over samenwerking en gilden op de fabric — nog in opbouw.</span>
+    <span class="dim" style="margin-left:auto"><a href="/">↩ hub</a></span></header>
+  <div class="cols">
+    <section>
+      <p class="lbl">Top knits</p>
+      <div class="sorts" id="sorts">
+        <button data-sort="score" class="on">score</button>
+        <button data-sort="new">nieuw</button>
+        <button data-sort="betwist">betwist</button>
+      </div>
+      <div id="knits"><p class="empty">Nog geen knits — dien de eerste in →</p></div>
+      <p class="lbl" style="margin-top:26px">Fiber-kaart · de fabric als graaf</p>
+      <div class="panel">
+        <p class="dim" style="margin:0 0 10px">De knits (feiten) en fibers (relaties) van dit field als een levend 3D-kennisweb — draaibaar, zoombaar, en in VR.</p>
+        <a class="btn" href="/graph.html?field=gangfield" style="display:inline-block;text-decoration:none">🕸 Open 3D-graaf</a>
+      </div>
+    </section>
+    <aside>
+      <p class="lbl">Knit indienen</p>
+      <div class="panel">
+        <label>Claim</label><textarea id="k-claim" placeholder="bv. Citroenzuur-leach van BOF-slak haalt 61% V bij pH 2,1"></textarea>
+        <label>Bron / assay</label><input id="k-source" placeholder="xrf:XRF-2026-0421" />
+        <label>Licentie</label><input id="k-license" value="CC-BY-4.0" />
+        <label>Tags (komma)</label><input id="k-tags" placeholder="leaching,vanadium" />
+        <p class="lbl" style="margin:14px 0 6px">Canonieke preview + digest</p>
+        <pre id="preview" class="mono">—</pre>
+        <button class="btn" id="sign" disabled>Sign lokaal &amp; download .f1</button>
+        <p class="dim" style="font-size:12px;margin-top:8px">Sleutel blijft lokaal (IndexedDB). v1: submissie = bestand, geen netwerk.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+<script>window.__BASE__="";window.__FIELD__={"slug":"gangfield","name":"Gangfield","accent":"#f4b41a"};window.__KNITS__=[];</script>
+<script type="module" src="/field.js"></script>
+</body>
+</html>
